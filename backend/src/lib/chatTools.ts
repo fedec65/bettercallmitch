@@ -7,6 +7,9 @@ import {
 } from "./storage";
 import { convertedPdfKey } from "./convert";
 import { createServerSupabase } from "./supabase";
+import { callMcpTool } from "./mcp/client";
+import { MCP_TOOLS } from "./mcp/tools";
+import { scanForPrivilege } from "./privacy";
 import {
     applyTrackedEdits,
     extractDocxBodyText,
@@ -75,7 +78,57 @@ export type ChatMessage = {
 // Constants
 // ---------------------------------------------------------------------------
 
-export const SYSTEM_PROMPT = `You are Mike, an AI legal assistant that helps lawyers and legal professionals analyze documents, answer legal questions, and draft legal documents.
+export const SYSTEM_PROMPT = `You are Mitch, a Swiss Legal Intelligence assistant. You help Swiss lawyers and legal professionals with legal research, document analysis, strategy, drafting, and compliance across all 26 cantons and federal law. You operate under Swiss legal standards and support German (DE), French (FR), Italian (IT), and English (EN).
+
+SWISS LEGAL IDENTITY:
+- You specialize in Swiss law: federal statutes (ZGB, OR, StGB, BV, ZPO, StPO), cantonal law, and BGE/ATF/DTT Federal Supreme Court precedent.
+- You are aware of all 26 cantons and their specific legal systems, court structures, and procedural variations.
+- When analyzing legal questions, default to federal Swiss law unless a specific canton is mentioned.
+- Use proper Swiss legal terminology in the user's input language:
+  - German: ZGB, OR, StGB, BGE, Art. X Abs. Y OR
+  - French: CC, CO, CP, ATF, art. X al. Y CO
+  - Italian: CC, CO, CP, DTF, art. X cpv. Y CO
+  - English: Swiss-specific terms with original abbreviations
+
+GUTACHTENSTIL (LEGAL REASONING):
+For all legal analysis, use the three-step Gutachtenstil structure:
+1. Obersatz (Rule): State the legal rule — "Nach Art. 97 Abs. 1 OR haftet der Schuldner..."
+2. Untersatz (Application): Apply facts to the rule — "Im vorliegenden Fall..."
+3. Schluss (Conclusion): State the result — "Somit ist die Haftung gegeben."
+
+CITATION STANDARDS:
+- Federal Supreme Court: BGE (DE), ATF (FR), DTF (IT) — e.g., "BGE 145 III 229 E. 4.2"
+- Statutes: "Art. 97 Abs. 1 OR" (DE), "art. 97 al. 1 CO" (FR), "art. 97 cpv. 1 CO" (IT)
+- Never fabricate citations. If uncertain, state the uncertainty explicitly.
+- Verify citations using the verify_citation tool when available.
+
+CANTONAL AWARENESS:
+- When a canton is mentioned (ZH, BE, GE, BS, VD, TI, etc.), apply canton-specific rules, courts, and procedures.
+- Note language options for bilingual cantons (BE, FR, VS).
+- Distinguish federal preemption from cantonal autonomy (Art. 3 BV residual competence).
+
+PRIVACY & ANWALTSGEHEIMNIS:
+- Respect attorney-client privilege (Anwaltsgeheimnis, Art. 321 StGB / Art. 13 BGFA).
+- Do not store, recall, or transmit confidential client data inappropriately.
+- Flag when user input may contain privileged content.
+
+MULTI-LINGUAL SUPPORT:
+- Respond in the user's input language.
+- Use correct legal terminology for that language.
+- When translating legal documents, preserve legal precision and terminology.
+
+SWISS LEGAL TOOLS:
+You have access to Swiss legal databases via MCP tools:
+- search_bge / get_bge_decision: Federal Supreme Court decisions
+- search_swiss_decisions: Cantonal and federal court decisions
+- verify_citation: Citation verification and cross-language conversion
+- search_federal_legislation: Fedlex federal legislation
+- search_commentary: Legal commentaries
+- legal_strategy: Structured case strategy
+- legal_draft: Swiss legal document drafting
+- legal_analyze: Document compliance analysis
+
+Use these tools proactively when the user's question involves Swiss case law, legislation, or requires verified citations.
 
 DOCUMENT CITATION INSTRUCTIONS:
 When you reference specific content from a document, place a numbered marker [1], [2], etc. inline in your prose at the point of reference.
@@ -976,7 +1029,7 @@ export async function runEditDocument(params: {
     const { bytes: editedBytes, changes, errors } = await applyTrackedEdits(
         current.bytes,
         edits,
-        { author: "Mike" },
+        { author: "Mitch" },
     );
 
     if (changes.length === 0) {
@@ -2195,6 +2248,51 @@ export async function runToolCalls(
                 tool_call_id: tc.id,
                 content: JSON.stringify(toolResultPayload),
             });
+
+        } else if (
+            tc.function.name === "search_bge" ||
+            tc.function.name === "get_bge_decision" ||
+            tc.function.name === "search_swiss_decisions" ||
+            tc.function.name === "verify_citation" ||
+            tc.function.name === "search_federal_legislation" ||
+            tc.function.name === "search_commentary" ||
+            tc.function.name === "legal_strategy" ||
+            tc.function.name === "legal_draft" ||
+            tc.function.name === "legal_analyze"
+        ) {
+            const serverMap: Record<string, string> = {
+                search_bge: "bge-search",
+                get_bge_decision: "bge-search",
+                search_swiss_decisions: "entscheidsuche",
+                verify_citation: "legal-citations",
+                search_federal_legislation: "fedlex-sparql",
+                search_commentary: "onlinekommentar",
+                legal_strategy: "legal-persona",
+                legal_draft: "legal-persona",
+                legal_analyze: "legal-persona",
+            };
+            const serverName = serverMap[tc.function.name];
+
+            // Anwaltsgeheimnis privacy scan before sending to external MCP servers
+            const argsJson = JSON.stringify(args);
+            const privacyScan = scanForPrivilege(argsJson, { path: tc.function.name });
+            if (privacyScan.isPrivileged) {
+                const blockedMsg = `[Privacy Block] This request was blocked because it may contain attorney-client privileged content (${privacyScan.category}). Swiss law: Art. 321 StGB / Art. 13 BGFA. Please review the content before sending it to external databases.`;
+                console.warn(`[privacy] Blocked ${tc.function.name}: ${privacyScan.reason}`);
+                toolResults.push({
+                    role: "tool",
+                    tool_call_id: tc.id,
+                    content: blockedMsg,
+                });
+            } else {
+                write(`data: ${JSON.stringify({ type: "tool_call_start", name: tc.function.name })}\n\n`);
+                const mcpResult = await callMcpTool(serverName, tc.function.name, args);
+                toolResults.push({
+                    role: "tool",
+                    tool_call_id: tc.id,
+                    content: mcpResult,
+                });
+            }
         }
     }
 
@@ -2315,8 +2413,8 @@ export async function runLLMStream(params: {
 }): Promise<{ fullText: string; events: AssistantEvent[] }> {
     const { apiMessages, docStore, docIndex, userId, db, write, extraTools, workflowStore, tabularStore, buildCitations, model, apiKeys, projectId } = params;
     const activeTools = extraTools?.length
-        ? [...TOOLS, ...WORKFLOW_TOOLS, ...extraTools]
-        : [...TOOLS, ...WORKFLOW_TOOLS];
+        ? [...TOOLS, ...WORKFLOW_TOOLS, ...MCP_TOOLS, ...extraTools]
+        : [...TOOLS, ...WORKFLOW_TOOLS, ...MCP_TOOLS];
 
     // Extract system prompt; pass remaining turns to the adapter as
     // plain user/assistant messages.

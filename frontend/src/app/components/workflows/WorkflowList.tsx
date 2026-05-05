@@ -536,7 +536,7 @@ export function WorkflowList() {
                                     {wf.is_system ? (
                                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600">
                                             <MikeIcon size={14} />
-                                            Mike
+                                            Mitch
                                         </span>
                                     ) : wf.user_id === user?.id ? (
                                         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600">

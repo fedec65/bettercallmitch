@@ -15,9 +15,9 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-    title: "Mike - AI Legal Platform",
+    title: "Mitch — Swiss Legal Intelligence",
     description:
-        "AI-powered legal document analysis and contract review platform.",
+        "Swiss-localized AI legal intelligence platform for document analysis, contract review, and legal research.",
     icons: {
         icon: [
             { url: "/icon.svg", type: "image/svg+xml" },

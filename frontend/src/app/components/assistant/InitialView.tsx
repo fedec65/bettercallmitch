@@ -75,6 +75,12 @@ export function InitialView({ onSubmit }: InitialViewProps) {
                         </h1>
                     </div>
 
+                    <div className="mb-4 text-center">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
+                            🇨🇭 Swiss Legal Intelligence
+                        </span>
+                    </div>
+
                     <ChatInput
                         onSubmit={onSubmit}
                         onCancel={() => {}}

@@ -13,7 +13,9 @@ import {
     File,
     FileText,
     FolderOpen,
+    Landmark,
     Library,
+    Scale,
     Square,
     X,
 } from "lucide-react";
@@ -227,6 +229,55 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                             onKeyDown={handleKeyDown}
                             className="w-full resize-none text-sm overflow-hidden border-0 text-base p-0 bg-transparent outline-none placeholder:text-gray-400 leading-6 max-h-48"
                         />
+                    </div>
+
+                    {/* Swiss quick actions */}
+                    <div className="px-4 pt-2 pb-1 flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setValue("Search BGE (Bundesgerichtsentscheide) for: ");
+                                if (textareaRef.current) {
+                                    textareaRef.current.style.height = "auto";
+                                    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+                                    textareaRef.current.focus();
+                                }
+                            }}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
+                        >
+                            <Scale className="h-3 w-3" />
+                            BGE Search
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setValue("Draft a Swiss law compliant contract for: ");
+                                if (textareaRef.current) {
+                                    textareaRef.current.style.height = "auto";
+                                    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+                                    textareaRef.current.focus();
+                                }
+                            }}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
+                        >
+                            <FileText className="h-3 w-3" />
+                            Draft Contract
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setValue("Explain cantonal law regarding: ");
+                                if (textareaRef.current) {
+                                    textareaRef.current.style.height = "auto";
+                                    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+                                    textareaRef.current.focus();
+                                }
+                            }}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
+                        >
+                            <Landmark className="h-3 w-3" />
+                            Cantonal Law
+                        </button>
                     </div>
 
                     {/* Controls */}
