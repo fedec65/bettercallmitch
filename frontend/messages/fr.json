@@ -1,0 +1,112 @@
+{
+  "navigation": {
+    "assistant": "Assistant",
+    "projects": "Projets",
+    "workflows": "Workflows",
+    "tabularReviews": "Aperçus tabulaires",
+    "account": "Compte",
+    "logout": "Déconnexion",
+    "newChat": "Nouveau chat",
+    "closeSidebar": "Fermer la barre latérale",
+    "openSidebar": "Ouvrir la barre latérale",
+    "assistantHistory": "Historique de l'assistant",
+    "noChats": "Aucun chat encore"
+  },
+  "chat": {
+    "placeholder": "Posez une question juridique...",
+    "send": "Envoyer",
+    "cancel": "Annuler",
+    "uploadDocument": "Télécharger un document",
+    "selectWorkflow": "Sélectionner un workflow",
+    "thinking": "Mitch réfléchit...",
+    "bgeSearch": "Recherche BGE",
+    "draftContract": "Rédiger un contrat",
+    "cantonalLaw": "Droit cantonal",
+    "openProjects": "Ouvrir les projets",
+    "projects": "Projets",
+    "openWorkflows": "Ouvrir les workflows",
+    "workflows": "Workflows"
+  },
+  "assistant": {
+    "welcome": "Bienvenue chez Mitch",
+    "subtitle": "Votre assistant juridique IA suisse",
+    "swissLegalIntelligence": "Intelligence juridique suisse",
+    "bgeSearch": "Recherche BGE",
+    "draftContract": "Rédiger un contrat",
+    "cantonalLaw": "Droit cantonal",
+    "disclaimer": "L'IA peut faire des erreurs. Les réponses ne constituent pas un conseil juridique.",
+    "addWorkflow": "Ajouter un workflow",
+    "selectWorkflow": "Sélectionner un workflow",
+    "searchWorkflows": "Rechercher des workflows…",
+    "startChatInProject": "Démarrer un chat dans un projet"
+  },
+  "projects": {
+    "newProject": "Nouveau projet",
+    "projectName": "Nom du projet",
+    "cmNumber": "N° CM",
+    "addColleagues": "Ajouter des collègues par e-mail",
+    "folderName": "Nom du dossier",
+    "searchProjects": "Rechercher des projets…",
+    "loadingVersions": "Chargement des versions…",
+    "search": "Rechercher…"
+  },
+  "tabularReviews": {
+    "tabularReview": "Aperçu tabulaire",
+    "newReview": "Nouvel aperçu",
+    "reviewName": "Nom de l'aperçu",
+    "columnName": "Nom de la colonne",
+    "addTag": "Ajouter un tag…",
+    "analysisPrompt": "Rédigez le prompt d'analyse – décrivez ce que Mitch doit extraire de chaque document pour cette colonne…",
+    "searchDocuments": "Rechercher des documents…",
+    "searchChats": "Rechercher des chats…"
+  },
+  "workflows": {
+    "selectWorkflow": "Sélectionner un workflow",
+    "searchWorkflows": "Rechercher des workflows…",
+    "people": "Personnes",
+    "editColumn": "Modifier la colonne"
+  },
+  "account": {
+    "title": "Compte",
+    "apiKeys": "Clés API",
+    "modelSettings": "Paramètres des modèles",
+    "privacyMode": "Mode de confidentialité",
+    "language": "Langue",
+    "save": "Enregistrer"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher…",
+    "selectProject": "Sélectionner un projet…",
+    "citation": "Citation",
+    "trackedChange": "Modification suivie"
+  },
+  "agents": {
+    "general": "Général",
+    "researcher": "Recherche",
+    "litigator": "Contentieux",
+    "drafter": "Rédaction",
+    "strategist": "Stratégie",
+    "cantonal_specialist": "Spécialiste cantonal",
+    "citation_verifier": "Vérificateur de citations",
+    "federal_analyst": "Analyste fédéral",
+    "adversarial_advocate": "Avocat",
+    "adversarial_adversary": "Adversaire",
+    "adversarial_judge": "Analyste judiciaire",
+    "document_analyst": "Analyste documentaire",
+    "translator": "Traducteur",
+    "summarizer": "Synthétiseur",
+    "cas_specialist": "Spécialiste CAS",
+    "compliance_officer": "Responsable conformité",
+    "corporate_lawyer": "Juriste d'entreprise",
+    "employment_lawyer": "Juriste social",
+    "real_estate_lawyer": "Juriste immobilier",
+    "tax_advisor": "Conseiller fiscal"
+  }
+}

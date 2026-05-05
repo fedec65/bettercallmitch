@@ -136,10 +136,24 @@ projectChatRouter.post("/", requireAuth, async (req, res) => {
         systemPromptExtra += `\n\nUSER-ATTACHED DOCUMENTS FOR THIS TURN:\nThe user has attached the following document(s) directly to their latest message. Treat these as the primary focus of the request unless their message clearly says otherwise.\n${lines.join("\n")}`;
     }
 
+    // Load chat agent for context injection
+    let chatAgentId: string | undefined;
+    if (chatId) {
+        const { data: chatRow } = await db
+            .from("chats")
+            .select("agent_id")
+            .eq("id", chatId)
+            .single();
+        chatAgentId = chatRow?.agent_id ?? undefined;
+    }
+
     const apiMessages = buildMessages(
         messagesForLLM,
         docAvailability,
         systemPromptExtra,
+        undefined,
+        undefined,
+        chatAgentId,
     );
 
     const workflowStore = await buildWorkflowStore(userId, userEmail, db);

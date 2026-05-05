@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
 import { useDirectoryData } from "../shared/useDirectoryData";
 import { ProjectPicker } from "../shared/ProjectPicker";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export function SelectAssistantProjectModal({ open, onClose }: Props) {
+    const t = useTranslations("assistant");
+    const tNav = useTranslations("navigation");
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [creating, setCreating] = useState(false);
     const router = useRouter();
@@ -46,9 +49,9 @@ export function SelectAssistantProjectModal({ open, onClose }: Props) {
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 py-4">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <span>Assistant</span>
+                        <span>{tNav("assistant")}</span>
                         <span>›</span>
-                        <span>Start Chat in a Project</span>
+                        <span>{t("startChatInProject")}</span>
                     </div>
                     <button
                         onClick={onClose}

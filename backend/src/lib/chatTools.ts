@@ -16,6 +16,7 @@ import {
     type EditInput,
 } from "./docxTrackedChanges";
 import { buildDownloadUrl } from "./downloadTokens";
+import { buildAgentSystemPrompt } from "./agents/registry";
 import { attachActiveVersionPaths, loadActiveVersion } from "./documentVersions";
 import {
     streamChatWithTools,
@@ -629,17 +630,60 @@ export async function enrichWithPriorEvents(
     return enriched;
 }
 
+const CANTON_INFO: Record<string, { name: string; language: string }> = {
+    ZH: { name: "Zurich", language: "German" },
+    BE: { name: "Bern", language: "German/French (bilingual)" },
+    GE: { name: "Geneva", language: "French" },
+    VD: { name: "Vaud", language: "French" },
+    TI: { name: "Ticino", language: "Italian" },
+    BS: { name: "Basel-Stadt", language: "German" },
+    AG: { name: "Aargau", language: "German" },
+    LU: { name: "Luzern", language: "German" },
+    SG: { name: "St. Gallen", language: "German" },
+    ZG: { name: "Zug", language: "German" },
+    SZ: { name: "Schwyz", language: "German" },
+    BL: { name: "Basel-Landschaft", language: "German" },
+    SO: { name: "Solothurn", language: "German" },
+    TG: { name: "Thurgau", language: "German" },
+    SH: { name: "Schaffhausen", language: "German" },
+    NW: { name: "Nidwalden", language: "German" },
+    OW: { name: "Obwalden", language: "German" },
+    UR: { name: "Uri", language: "German" },
+    GL: { name: "Glarus", language: "German" },
+    AR: { name: "Appenzell Ausserrhoden", language: "German" },
+    AI: { name: "Appenzell Innerrhoden", language: "German" },
+    FR: { name: "Fribourg", language: "German/French (bilingual)" },
+    NE: { name: "Neuchâtel", language: "French" },
+    JU: { name: "Jura", language: "French" },
+    GR: { name: "Graubünden", language: "German/Italian/Romansh (trilingual)" },
+    VS: { name: "Valais", language: "German/French (bilingual)" },
+};
+
 export function buildMessages(
     messages: ChatMessage[],
     docAvailability: { doc_id: string; filename: string; folder_path?: string }[],
     systemPromptExtra?: string,
     docIndex?: DocIndex,
+    canton?: string,
+    agentId?: string,
 ) {
     const formatted: unknown[] = [];
     let systemContent = SYSTEM_PROMPT;
 
+    if (agentId) {
+        systemContent = buildAgentSystemPrompt(systemContent, agentId);
+    }
+
     if (systemPromptExtra) {
         systemContent += `\n\n${systemPromptExtra.trim()}`;
+    }
+
+    if (canton && CANTON_INFO[canton]) {
+        const info = CANTON_INFO[canton];
+        systemContent += `\n\n---\nCANTON CONTEXT: This matter involves ${info.name} (${canton}) cantonal law.\n`;
+        systemContent += `Apply ${info.name} court procedures, fee schedules, and citation formats.\n`;
+        systemContent += `The official language(s) of ${info.name} is/are: ${info.language}.\n`;
+        systemContent += `Use the appropriate legal terminology for the canton's primary language.\n---\n`;
     }
 
     if (docAvailability.length) {

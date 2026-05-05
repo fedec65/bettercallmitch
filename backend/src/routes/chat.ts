@@ -13,6 +13,8 @@ import {
 import { completeText } from "../lib/llm";
 import { getUserApiKeys, getUserModelSettings } from "../lib/userSettings";
 import { checkProjectAccess } from "../lib/access";
+import { listAgents } from "../lib/agents/registry";
+import { listOllamaModels } from "../lib/llm/ollama";
 
 export const chatRouter = Router();
 
@@ -22,6 +24,30 @@ export const chatRouter = Router();
 // own projects in the global recent-chats list). Chats in projects that
 // are merely *shared with* the user are NOT included here — those are
 // listed per-project via GET /projects/:projectId/chats.
+// GET /chat/agents
+chatRouter.get("/agents", requireAuth, async (_req, res) => {
+    res.json(listAgents());
+});
+
+// GET /chat/models/ollama — list locally available Ollama models
+chatRouter.get("/models/ollama", requireAuth, async (req, res) => {
+    const userId = res.locals.userId as string;
+    const db = createServerSupabase();
+    const { data: profile } = await db
+        .from("user_profiles")
+        .select("ollama_host")
+        .eq("user_id", userId)
+        .single();
+    const models = await listOllamaModels({ ollama: profile?.ollama_host });
+    res.json({ available: models.length > 0, models });
+});
+
+// Public test endpoint for debugging
+chatRouter.get("/models/ollama-test", async (_req, res) => {
+    const models = await listOllamaModels();
+    res.json({ available: models.length > 0, models });
+});
+
 chatRouter.get("/", requireAuth, async (req, res) => {
     const userId = res.locals.userId as string;
     const db = createServerSupabase();
@@ -53,10 +79,12 @@ chatRouter.get("/", requireAuth, async (req, res) => {
 chatRouter.post("/create", requireAuth, async (req, res) => {
     const userId = res.locals.userId as string;
     const projectId: string | null = req.body.project_id ?? null;
+    const canton: string | null = req.body.canton ?? null;
+    const agentId: string | null = req.body.agent_id ?? null;
     const db = createServerSupabase();
     const { data, error } = await db
         .from("chats")
-        .insert({ user_id: userId, project_id: projectId ?? undefined })
+        .insert({ user_id: userId, project_id: projectId ?? undefined, canton: canton ?? undefined, agent_id: agentId ?? undefined })
         .select("id")
         .single();
 
@@ -416,7 +444,38 @@ chatRouter.post("/", requireAuth, async (req, res) => {
         db,
         docIndex,
     );
-    const apiMessages = buildMessages(enrichedMessages, docAvailability);
+    // Privacy mode: strict mode forces Ollama regardless of user selection
+    let selectedModel = model;
+    const { data: profile } = await db
+        .from("user_profiles")
+        .select("privacy_mode, preferred_ollama_model, ollama_host")
+        .eq("user_id", userId)
+        .single();
+    if (profile?.privacy_mode === "strict") {
+        // Use user's preferred Ollama model, or discover first available
+        let ollamaModel = profile?.preferred_ollama_model;
+        if (!ollamaModel) {
+            const available = await listOllamaModels({ ollama: profile?.ollama_host });
+            ollamaModel = available[0]?.id ?? "ollama-llama3.2-latest";
+        }
+        selectedModel = ollamaModel;
+        console.log("[chat/stream] privacy_mode=strict, forcing Ollama model", selectedModel);
+    }
+
+    // Load chat canton and agent for context injection
+    let chatCanton: string | undefined;
+    let chatAgentId: string | undefined;
+    if (chatId) {
+        const { data: chatRow } = await db
+            .from("chats")
+            .select("canton,agent_id")
+            .eq("id", chatId)
+            .single();
+        chatCanton = chatRow?.canton ?? undefined;
+        chatAgentId = chatRow?.agent_id ?? undefined;
+    }
+
+    const apiMessages = buildMessages(enrichedMessages, docAvailability, undefined, docIndex, chatCanton, chatAgentId);
 
     const workflowStore = await buildWorkflowStore(userId, userEmail, db);
 
@@ -424,6 +483,9 @@ chatRouter.post("/", requireAuth, async (req, res) => {
         apiMessageCount: apiMessages.length,
         docCount: Object.keys(docIndex).length,
         workflowCount: Object.keys(workflowStore).length,
+        model: selectedModel,
+        canton: chatCanton,
+        privacyMode: profile?.privacy_mode,
     });
 
     res.setHeader("Content-Type", "text/event-stream");
@@ -447,7 +509,7 @@ chatRouter.post("/", requireAuth, async (req, res) => {
             db,
             write,
             workflowStore,
-            model,
+            model: selectedModel,
             apiKeys,
             projectId: project_id ?? null,
         });

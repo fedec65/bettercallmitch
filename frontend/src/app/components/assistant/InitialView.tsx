@@ -5,17 +5,24 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 import { MikeIcon } from "@/components/chat/mike-icon";
 import { ChatInput } from "./ChatInput";
+import { CantonSelector } from "./CantonSelector";
 import { SelectAssistantProjectModal } from "./SelectAssistantProjectModal";
 import type { MikeMessage } from "../shared/types";
+import { useTranslations } from "next-intl";
 
 interface InitialViewProps {
     onSubmit: (message: MikeMessage) => void;
+    canton: string | null;
+    onCantonChange: (canton: string | null) => void;
+    agentId?: string | null;
+    onAgentChange?: (agentId: string | null) => void;
 }
 
 const ICON_SIZE = 35;
 const GAP = 16; // gap-4 = 1rem = 16px
 
-export function InitialView({ onSubmit }: InitialViewProps) {
+export function InitialView({ onSubmit, canton, onCantonChange, agentId, onAgentChange }: InitialViewProps) {
+    const t = useTranslations("assistant");
     const { user } = useAuth();
     const { profile } = useUserProfile();
     const [loaded, setLoaded] = useState(false);
@@ -77,8 +84,12 @@ export function InitialView({ onSubmit }: InitialViewProps) {
 
                     <div className="mb-4 text-center">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
-                            🇨🇭 Swiss Legal Intelligence
+                            🇨🇭 {t("swissLegalIntelligence")}
                         </span>
+                    </div>
+
+                    <div className="mb-3 flex justify-center">
+                        <CantonSelector value={canton} onChange={onCantonChange} />
                     </div>
 
                     <ChatInput
@@ -90,7 +101,7 @@ export function InitialView({ onSubmit }: InitialViewProps) {
 
                     <div className="text-center">
                         <p className="text-xs py-3 mb-3 text-gray-500">
-                            AI can make mistakes. Answers are not legal advice.
+                            {t("disclaimer")}
                         </p>
                     </div>
                 </div>

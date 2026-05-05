@@ -18,13 +18,15 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { MikeIcon } from "@/components/chat/mike-icon";
 import { SidebarChatItem } from "@/app/components/shared/SidebarChatItem";
+import { LanguageSwitcher } from "@/app/components/shared/LanguageSwitcher";
 import { listProjects } from "@/app/lib/mikeApi";
+import { useTranslations } from "next-intl";
 
 const NAV_ITEMS = [
-    { href: "/assistant", label: "Assistant", icon: MessageSquare },
-    { href: "/projects", label: "Projects", icon: FolderOpen },
-    { href: "/tabular-reviews", label: "Tabular Review", icon: Table2 },
-    { href: "/workflows", label: "Workflows", icon: Library },
+    { href: "/assistant", labelKey: "assistant", icon: MessageSquare },
+    { href: "/projects", labelKey: "projects", icon: FolderOpen },
+    { href: "/tabular-reviews", labelKey: "tabularReviews", icon: Table2 },
+    { href: "/workflows", labelKey: "workflows", icon: Library },
 ];
 
 interface AppSidebarProps {
@@ -33,6 +35,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
+    const t = useTranslations("navigation");
     const { user } = useAuth();
     const { profile } = useUserProfile();
     const { chats, currentChatId, setCurrentChatId } = useChatHistoryContext();
@@ -141,21 +144,21 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                 <button
                     onClick={onToggle}
                     className="h-9 w-9 p-2.5 items-center flex hover:bg-gray-100 rounded-md transition-colors"
-                    title={isOpen ? "Close sidebar" : "Open sidebar"}
+                    title={isOpen ? t("closeSidebar") : t("openSidebar")}
                 >
                     <PanelLeft className="h-4 w-4" />
                 </button>
             </div>
 
             {/* Nav items */}
-            {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+            {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
                 const isActive =
                     pathname === href || pathname.startsWith(href + "/");
                 return (
                     <div key={href} className="py-1 px-2.5">
                         <button
                             onClick={() => router.push(href)}
-                            title={!isOpen ? label : ""}
+                            title={!isOpen ? t(labelKey) : ""}
                             className={`w-full h-9 flex items-center gap-3 px-2.5 py-2 rounded-md transition-colors text-left ${
                                 isActive
                                     ? "bg-gray-100 text-gray-900"
@@ -173,7 +176,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                         shouldAnimate ? "sidebar-fade-in-2" : ""
                                     }`}
                                 >
-                                    {label}
+                                    {t(labelKey)}
                                 </span>
                             )}
                         </button>
@@ -190,7 +193,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                             shouldAnimate ? "sidebar-fade-in" : ""
                         }`}
                     >
-                        <span>Assistant History</span>
+                        <span>{t("assistantHistory")}</span>
                         <ChevronDown
                             className={`h-3.5 w-3.5 transition-transform ${historyCollapsed ? "-rotate-90" : ""}`}
                         />
@@ -218,7 +221,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                     shouldAnimate ? "sidebar-fade-in-2" : ""
                                 }`}
                             >
-                                No chats yet
+                                {t("noChats")}
                             </div>
                         ) : (
                             <div
@@ -299,12 +302,15 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                     className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2 rounded-md"
                                 >
                                     <User className="h-4 w-4" />
-                                    Account Settings
+                                    {t("account")}
                                 </button>
                             </div>
                         )}
                     </div>
                 )}
+                <div className="px-3.5 py-2 border-t border-gray-100">
+                    <LanguageSwitcher />
+                </div>
             </div>
         </div>
     );

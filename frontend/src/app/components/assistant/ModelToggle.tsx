@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, Check, AlertCircle } from "lucide-react";
 import {
     DropdownMenu,
@@ -11,11 +11,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { isModelAvailable } from "@/app/lib/modelAvailability";
+import { fetchOllamaModels } from "@/app/lib/mikeApi";
 
 export interface ModelOption {
     id: string;
     label: string;
-    group: "Anthropic" | "Google";
+    group: "Anthropic" | "Google" | "Ollama";
 }
 
 export const MODELS: ModelOption[] = [
@@ -29,7 +30,7 @@ export const DEFAULT_MODEL_ID = "gemini-3-flash-preview";
 
 export const ALLOWED_MODEL_IDS = new Set(MODELS.map((m) => m.id));
 
-const GROUP_ORDER: ModelOption["group"][] = ["Anthropic", "Google"];
+const GROUP_ORDER: ModelOption["group"][] = ["Anthropic", "Google", "Ollama"];
 
 interface Props {
     value: string;
@@ -42,10 +43,33 @@ interface Props {
 
 export function ModelToggle({ value, onChange, apiKeys }: Props) {
     const [isOpen, setIsOpen] = useState(false);
-    const selected = MODELS.find((m) => m.id === value);
+    const [ollamaModels, setOllamaModels] = useState<ModelOption[]>([]);
+    const [ollamaAvailable, setOllamaAvailable] = useState(false);
+
+    useEffect(() => {
+        fetchOllamaModels()
+            .then((res) => {
+                if (res.available) {
+                    setOllamaModels(
+                        res.models.map((m) => ({
+                            id: m.id,
+                            label: m.name,
+                            group: "Ollama" as const,
+                        })),
+                    );
+                    setOllamaAvailable(true);
+                }
+            })
+            .catch((err) => {
+                console.error("[ModelToggle] failed to fetch Ollama models:", err);
+            });
+    }, []);
+
+    const allModels = [...MODELS, ...ollamaModels];
+    const selected = allModels.find((m) => m.id === value);
     const selectedLabel = selected?.label ?? "Model";
     const selectedAvailable = apiKeys
-        ? isModelAvailable(value, apiKeys)
+        ? isModelAvailable(value, apiKeys, ollamaAvailable)
         : true;
 
     return (
@@ -71,7 +95,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 z-50" side="top" align="start">
                 {GROUP_ORDER.map((group, gi) => {
-                    const items = MODELS.filter((m) => m.group === group);
+                    const items = allModels.filter((m) => m.group === group);
                     if (items.length === 0) return null;
                     return (
                         <div key={group}>
@@ -81,7 +105,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
                             </DropdownMenuLabel>
                             {items.map((m) => {
                                 const available = apiKeys
-                                    ? isModelAvailable(m.id, apiKeys)
+                                    ? isModelAvailable(m.id, apiKeys, ollamaAvailable)
                                     : true;
                                 return (
                                     <DropdownMenuItem

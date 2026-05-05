@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAssistantChat } from "@/app/hooks/useAssistantChat";
 import { useChatHistoryContext } from "@/app/contexts/ChatHistoryContext";
@@ -19,6 +19,8 @@ export default function AssistantChatPage() {
     const { messages, isResponseLoading, handleChat, setMessages, cancel } =
         useAssistantChat({ initialMessages, chatId: id });
 
+    const [chatAgentId, setChatAgentId] = useState<string | null>(null);
+
     const hasAutoSent = useRef(false);
     const hasLoaded = useRef(false);
 
@@ -35,7 +37,8 @@ export default function AssistantChatPage() {
         hasLoaded.current = true;
 
         getChat(id)
-            .then(({ messages: loaded }) => {
+            .then(({ chat, messages: loaded }) => {
+                setChatAgentId(chat.agent_id ?? null);
                 if (loaded.length > 0) {
                     setMessages(loaded);
                 } else {
@@ -65,6 +68,7 @@ export default function AssistantChatPage() {
             isResponseLoading={isResponseLoading}
             handleChat={handleChat}
             cancel={cancel}
+            agentId={chatAgentId}
         />
     );
 }

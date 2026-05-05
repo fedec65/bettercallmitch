@@ -19,6 +19,10 @@ export const GEMINI_MID_MODELS = ["gemini-3-flash-preview"] as const;
 export const CLAUDE_LOW_MODELS = ["claude-haiku-4-5"] as const;
 export const GEMINI_LOW_MODELS = ["gemini-3.1-flash-lite-preview"] as const;
 
+export const OLLAMA_MAIN_MODELS = ["ollama-llama3.3-70b", "ollama-qwen2.5-32b"] as const;
+export const OLLAMA_MID_MODELS = ["ollama-llama3.1-8b"] as const;
+export const OLLAMA_LOW_MODELS = ["ollama-llama3.1-8b"] as const;
+
 export const DEFAULT_MAIN_MODEL = "gemini-3-flash-preview";
 export const DEFAULT_TITLE_MODEL = "gemini-3.1-flash-lite-preview";
 export const DEFAULT_TABULAR_MODEL = "gemini-3-flash-preview";
@@ -26,10 +30,13 @@ export const DEFAULT_TABULAR_MODEL = "gemini-3-flash-preview";
 const ALL_MODELS = new Set<string>([
     ...CLAUDE_MAIN_MODELS,
     ...GEMINI_MAIN_MODELS,
+    ...OLLAMA_MAIN_MODELS,
     ...CLAUDE_MID_MODELS,
     ...GEMINI_MID_MODELS,
+    ...OLLAMA_MID_MODELS,
     ...CLAUDE_LOW_MODELS,
     ...GEMINI_LOW_MODELS,
+    ...OLLAMA_LOW_MODELS,
 ]);
 
 // ---------------------------------------------------------------------------
@@ -39,10 +46,16 @@ const ALL_MODELS = new Set<string>([
 export function providerForModel(model: string): Provider {
     if (model.startsWith("claude")) return "claude";
     if (model.startsWith("gemini")) return "gemini";
+    if (model.startsWith("ollama")) return "ollama";
     throw new Error(`Unknown model id: ${model}`);
 }
 
+export function isValidModelId(id: string): boolean {
+    if (id.startsWith("ollama-")) return true;
+    return ALL_MODELS.has(id);
+}
+
 export function resolveModel(id: string | null | undefined, fallback: string): string {
-    if (id && ALL_MODELS.has(id)) return id;
+    if (id && isValidModelId(id)) return id;
     return fallback;
 }

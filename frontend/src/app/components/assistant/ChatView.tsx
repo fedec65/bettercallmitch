@@ -23,6 +23,7 @@ interface Props {
     isResponseLoading: boolean;
     handleChat: (message: MikeMessage) => Promise<string | null>;
     cancel: () => void;
+    agentId?: string | null;
 }
 
 export function ChatView({
@@ -30,6 +31,7 @@ export function ChatView({
     isResponseLoading,
     handleChat,
     cancel,
+    agentId,
 }: Props) {
     const [tabs, setTabs] = useState<AssistantSidePanelTab[]>([]);
     const [activeTabId, setActiveTabId] = useState<string | null>(null);
@@ -579,6 +581,7 @@ export function ChatView({
                                 onSubmit={handleChat}
                                 onCancel={cancel}
                                 isLoading={isResponseLoading}
+                                agentId={agentId}
                             />
                             <div className="py-3 text-center">
                                 <p className="text-xs text-gray-500">

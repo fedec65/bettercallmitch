@@ -353,12 +353,25 @@ export async function downloadDocumentsZip(
 
 export async function createChat(payload?: {
     project_id?: string;
+    canton?: string | null;
+    agent_id?: string | null;
 }): Promise<{ id: string }> {
     return apiRequest<{ id: string }>("/chat/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload ?? {}),
     });
+}
+
+export interface AgentInfo {
+    id: string;
+    name: string;
+    description: string;
+    icon: string;
+}
+
+export async function listAgents(): Promise<AgentInfo[]> {
+    return apiRequest<AgentInfo[]>("/chat/agents");
 }
 
 export async function listChats(): Promise<MikeChat[]> {
@@ -814,4 +827,8 @@ export async function deleteWorkflowShare(
     await apiRequest(`/workflows/${workflowId}/shares/${shareId}`, {
         method: "DELETE",
     });
+}
+
+export async function fetchOllamaModels(): Promise<{ available: boolean; models: { id: string; name: string }[] }> {
+    return apiRequest("/chat/models/ollama");
 }

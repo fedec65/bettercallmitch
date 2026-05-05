@@ -21,6 +21,8 @@ interface UserProfile {
     tabularModel: string;
     claudeApiKey: string | null;
     geminiApiKey: string | null;
+    ollamaHost: string | null;
+    preferredOllamaModel: string | null;
 }
 
 interface UserProfileContextType {
@@ -36,6 +38,8 @@ interface UserProfileContextType {
         provider: "claude" | "gemini",
         value: string | null,
     ) => Promise<boolean>;
+    updateOllamaHost: (value: string | null) => Promise<boolean>;
+    updatePreferredOllamaModel: (value: string | null) => Promise<boolean>;
     reloadProfile: () => Promise<void>;
     incrementMessageCredits: () => Promise<boolean>;
 }
@@ -77,6 +81,8 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                     tabularModel: "gemini-3-flash-preview",
                     claudeApiKey: null,
                     geminiApiKey: null,
+                    ollamaHost: null,
+                    preferredOllamaModel: null,
                 });
                 return;
             }
@@ -111,6 +117,8 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                         data.tabular_model || "gemini-3-flash-preview",
                     claudeApiKey: data.claude_api_key ?? null,
                     geminiApiKey: data.gemini_api_key ?? null,
+                    ollamaHost: data.ollama_host ?? null,
+                    preferredOllamaModel: data.preferred_ollama_model ?? null,
                 });
 
                 // 2. Update database in background if needed
@@ -148,6 +156,8 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 tabularModel: "gemini-3-flash-preview",
                 claudeApiKey: null,
                 geminiApiKey: null,
+                ollamaHost: null,
+                preferredOllamaModel: null,
             });
         } finally {
             setLoading(false);
@@ -274,6 +284,54 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         [user],
     );
 
+    const updateOllamaHost = useCallback(
+        async (value: string | null): Promise<boolean> => {
+            if (!user) return false;
+            const normalized = value?.trim() ? value.trim() : null;
+            try {
+                const { error } = await supabase
+                    .from("user_profiles")
+                    .update({
+                        ollama_host: normalized,
+                        updated_at: new Date().toISOString(),
+                    })
+                    .eq("user_id", user.id);
+                if (error) throw error;
+                setProfile((prev) =>
+                    prev ? { ...prev, ollamaHost: normalized } : null,
+                );
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [user],
+    );
+
+    const updatePreferredOllamaModel = useCallback(
+        async (value: string | null): Promise<boolean> => {
+            if (!user) return false;
+            const normalized = value?.trim() ? value.trim() : null;
+            try {
+                const { error } = await supabase
+                    .from("user_profiles")
+                    .update({
+                        preferred_ollama_model: normalized,
+                        updated_at: new Date().toISOString(),
+                    })
+                    .eq("user_id", user.id);
+                if (error) throw error;
+                setProfile((prev) =>
+                    prev ? { ...prev, preferredOllamaModel: normalized } : null,
+                );
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [user],
+    );
+
     const reloadProfile = useCallback(async () => {
         if (user) {
             await loadProfile(user.id);
@@ -331,6 +389,8 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 updateOrganisation,
                 updateModelPreference,
                 updateApiKey,
+                updateOllamaHost,
+                updatePreferredOllamaModel,
                 reloadProfile,
                 incrementMessageCredits,
             }}

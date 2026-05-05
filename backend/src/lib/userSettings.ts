@@ -10,6 +10,7 @@ export type UserModelSettings = {
     title_model: string;
     tabular_model: string;
     api_keys: UserApiKeys;
+    preferred_ollama_model: string | null;
 };
 
 // Title generation is a lightweight task — always routed to the cheapest model
@@ -29,19 +30,21 @@ export async function getUserModelSettings(
     const client = db ?? createServerSupabase();
     const { data } = await client
         .from("user_profiles")
-        .select("tabular_model, claude_api_key, gemini_api_key")
+        .select("tabular_model, claude_api_key, gemini_api_key, ollama_host, privacy_mode, preferred_ollama_model")
         .eq("user_id", userId)
         .single();
 
     const api_keys: UserApiKeys = {
         claude: data?.claude_api_key ?? null,
         gemini: data?.gemini_api_key ?? null,
+        ollama: data?.ollama_host ?? null,
     };
 
     return {
         title_model: resolveTitleModel(api_keys),
         tabular_model: resolveModel(data?.tabular_model, DEFAULT_TABULAR_MODEL),
         api_keys,
+        preferred_ollama_model: data?.preferred_ollama_model ?? null,
     };
 }
 
@@ -52,11 +55,12 @@ export async function getUserApiKeys(
     const client = db ?? createServerSupabase();
     const { data } = await client
         .from("user_profiles")
-        .select("claude_api_key, gemini_api_key")
+        .select("claude_api_key, gemini_api_key, ollama_host")
         .eq("user_id", userId)
         .single();
     return {
         claude: data?.claude_api_key ?? null,
         gemini: data?.gemini_api_key ?? null,
+        ollama: data?.ollama_host ?? null,
     };
 }

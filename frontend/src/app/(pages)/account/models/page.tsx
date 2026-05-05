@@ -18,9 +18,32 @@ import {
     isModelAvailable,
     modelGroupToProvider,
 } from "@/app/lib/modelAvailability";
+import { fetchOllamaModels } from "@/app/lib/mikeApi";
 
 export default function ModelsAndApiKeysPage() {
-    const { profile, updateModelPreference, updateApiKey } = useUserProfile();
+    const {
+        profile,
+        updateModelPreference,
+        updateApiKey,
+        updateOllamaHost,
+        updatePreferredOllamaModel,
+    } = useUserProfile();
+
+    const [ollamaModels, setOllamaModels] = useState<{ id: string; name: string }[]>([]);
+    const [ollamaAvailable, setOllamaAvailable] = useState(false);
+
+    useEffect(() => {
+        fetchOllamaModels()
+            .then((res) => {
+                if (res.available) {
+                    setOllamaModels(res.models);
+                    setOllamaAvailable(true);
+                }
+            })
+            .catch((err) => {
+                console.error("[AccountModels] failed to fetch Ollama models:", err);
+            });
+    }, []);
 
     return (
         <div className="space-y-4">
@@ -45,6 +68,7 @@ export default function ModelsAndApiKeysPage() {
                                 claudeApiKey: profile?.claudeApiKey ?? null,
                                 geminiApiKey: profile?.geminiApiKey ?? null,
                             }}
+                            ollamaAvailable={ollamaAvailable}
                             onChange={(id) =>
                                 updateModelPreference("tabularModel", id)
                             }
@@ -53,8 +77,47 @@ export default function ModelsAndApiKeysPage() {
                 </div>
             </div>
 
+            {/* Ollama Configuration */}
+            <div className="py-6 border-t border-gray-200">
+                <div className="flex items-center gap-2 mb-2">
+                    <h2 className="text-2xl font-medium font-serif">
+                        Ollama (Local LLM)
+                    </h2>
+                </div>
+                <p className="text-sm text-gray-500 mb-4 max-w-xl">
+                    Configure your local Ollama instance for privacy mode and
+                    local model inference. No API key needed — models run on
+                    your own machine.
+                </p>
+                <div className="space-y-4 max-w-xl">
+                    <div>
+                        <label className="text-sm text-gray-600 block mb-2">
+                            Ollama Host URL
+                        </label>
+                        <OllamaHostField
+                            initialValue={profile?.ollamaHost ?? ""}
+                            onSave={(value) =>
+                                updateOllamaHost(value.trim() || null)
+                            }
+                        />
+                    </div>
+                    <div>
+                        <label className="text-sm text-gray-600 block mb-2">
+                            Preferred Ollama Model
+                        </label>
+                        <OllamaModelDropdown
+                            value={profile?.preferredOllamaModel ?? ""}
+                            models={ollamaModels}
+                            onChange={(id) =>
+                                updatePreferredOllamaModel(id || null)
+                            }
+                        />
+                    </div>
+                </div>
+            </div>
+
             {/* API Keys */}
-            <div className="py-6">
+            <div className="py-6 border-t border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                     <h2 className="text-2xl font-medium font-serif">
                         API Keys
@@ -97,14 +160,16 @@ function TabularModelDropdown({
     value,
     onChange,
     apiKeys,
+    ollamaAvailable,
 }: {
     value: string;
     onChange: (id: string) => void;
     apiKeys: { claudeApiKey: string | null; geminiApiKey: string | null };
+    ollamaAvailable: boolean;
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const selected = MODELS.find((m) => m.id === value);
-    const selectedAvailable = isModelAvailable(value, apiKeys);
+    const selectedAvailable = isModelAvailable(value, apiKeys, ollamaAvailable);
     const groups: ("Anthropic" | "Google")[] = ["Anthropic", "Google"];
 
     return (
@@ -146,6 +211,7 @@ function TabularModelDropdown({
                                 const available = isModelAvailable(
                                     m.id,
                                     apiKeys,
+                                    ollamaAvailable,
                                 );
                                 return (
                                     <DropdownMenuItem
@@ -175,6 +241,124 @@ function TabularModelDropdown({
                         </div>
                     );
                 })}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
+
+function OllamaHostField({
+    initialValue,
+    onSave,
+}: {
+    initialValue: string;
+    onSave: (value: string) => Promise<boolean>;
+}) {
+    const [value, setValue] = useState(initialValue);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saved, setSaved] = useState(false);
+
+    useEffect(() => {
+        setValue(initialValue);
+    }, [initialValue]);
+
+    const dirty = value !== initialValue;
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        const ok = await onSave(value);
+        setIsSaving(false);
+        if (ok) {
+            setSaved(true);
+            setTimeout(() => setSaved(false), 2000);
+        } else {
+            alert("Failed to save Ollama host.");
+        }
+    };
+
+    return (
+        <div className="flex gap-2">
+            <Input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="http://localhost:11434"
+                autoComplete="off"
+                spellCheck={false}
+            />
+            <Button
+                onClick={handleSave}
+                disabled={isSaving || !dirty || saved}
+                className="min-w-[80px] transition-all bg-black hover:bg-gray-900 text-white"
+            >
+                {isSaving ? (
+                    "Saving..."
+                ) : saved ? (
+                    <>
+                        <Check className="h-4 w-3" />
+                        Saved
+                    </>
+                ) : (
+                    "Save"
+                )}
+            </Button>
+        </div>
+    );
+}
+
+function OllamaModelDropdown({
+    value,
+    models,
+    onChange,
+}: {
+    value: string;
+    models: { id: string; name: string }[];
+    onChange: (id: string) => void;
+}) {
+    const [isOpen, setIsOpen] = useState(false);
+    const selected = models.find((m) => m.id === value);
+
+    return (
+        <DropdownMenu onOpenChange={setIsOpen}>
+            <DropdownMenuTrigger asChild>
+                <button
+                    type="button"
+                    className="w-full h-9 rounded-md border border-gray-300 bg-white px-3 text-sm shadow-sm flex items-center justify-between gap-2 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black/10"
+                >
+                    <span className="truncate text-gray-900">
+                        {selected?.name ??
+                            (models.length > 0
+                                ? "Select a model"
+                                : "No Ollama models found")}
+                    </span>
+                    <ChevronDown
+                        className={`h-3.5 w-3.5 shrink-0 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+                className="z-50"
+                style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
+                align="start"
+            >
+                {models.length === 0 && (
+                    <DropdownMenuItem disabled>
+                        <span className="text-gray-400">
+                            No models available — check Ollama host
+                        </span>
+                    </DropdownMenuItem>
+                )}
+                {models.map((m) => (
+                    <DropdownMenuItem
+                        key={m.id}
+                        className="cursor-pointer"
+                        onSelect={() => onChange(m.id)}
+                    >
+                        <span className="flex-1">{m.name}</span>
+                        {m.id === value && (
+                            <Check className="h-3.5 w-3.5 text-gray-600 ml-1" />
+                        )}
+                    </DropdownMenuItem>
+                ))}
             </DropdownMenuContent>
         </DropdownMenu>
     );

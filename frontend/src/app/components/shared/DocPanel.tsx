@@ -16,6 +16,7 @@ import type {
     MikeCitationAnnotation,
     MikeEditAnnotation,
 } from "./types";
+import { useTranslations } from "next-intl";
 
 function isDocxFilename(name: string): boolean {
     const ext = name.split(".").pop()?.toLowerCase();
@@ -199,12 +200,13 @@ function CitationHeader({
     filename: string;
     isReloading: boolean;
 }) {
+    const t = useTranslations("common");
     const displayQuote = displayCitationQuote(citation);
     const pagesLabel = formatCitationPage(citation);
     return (
         <div className="pt-2 pb-3">
             <div className="flex items-center gap-2 mb-2">
-                <SectionLabel>Citation</SectionLabel>
+                <SectionLabel>{t("citation")}</SectionLabel>
                 <div className="ml-auto shrink-0">
                     <DownloadButton
                         documentId={documentId}
@@ -241,11 +243,12 @@ function TrackedChangeHeader({
     filename: string;
     isReloading: boolean;
 }) {
+    const t = useTranslations("common");
     const { edit, isEditReloading, onResolveStart, onResolved, onError } = mode;
     return (
         <div className="pt-2 pb-3">
             <div className="flex items-center gap-2 mb-2">
-                <SectionLabel>Tracked Change</SectionLabel>
+                <SectionLabel>{t("trackedChange")}</SectionLabel>
                 <div className="ml-auto flex items-center gap-2 shrink-0">
                     <EditResolveButtons
                         edit={edit}

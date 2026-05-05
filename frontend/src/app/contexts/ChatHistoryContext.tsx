@@ -23,7 +23,7 @@ interface ChatHistoryContextType {
     currentChatId: string | null;
     setCurrentChatId: (chatId: string | null) => void;
     loadChats: () => Promise<void>;
-    saveChat: (projectId?: string) => Promise<string | null>;
+    saveChat: (projectId?: string, canton?: string | null, agentId?: string | null) => Promise<string | null>;
     renameChat: (chatId: string, title: string) => Promise<void>;
     newChatMessages: MikeMessage[] | null;
     setNewChatMessages: (messages: MikeMessage[] | null) => void;
@@ -100,17 +100,21 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
     );
 
     const saveChat = useCallback(
-        async (projectId?: string): Promise<string | null> => {
+        async (projectId?: string, canton?: string | null, agentId?: string | null): Promise<string | null> => {
             try {
-                const { id } = await createChat(
-                    projectId ? { project_id: projectId } : undefined,
-                );
+                const payload: { project_id?: string; canton?: string; agent_id?: string } = {};
+                if (projectId) payload.project_id = projectId;
+                if (canton) payload.canton = canton;
+                if (agentId) payload.agent_id = agentId;
+                const { id } = await createChat(Object.keys(payload).length > 0 ? payload : undefined);
                 const now = new Date().toISOString();
                 const newChat: MikeChat = {
                     id,
                     project_id: projectId ?? null,
                     user_id: user?.id ?? "",
                     title: null,
+                    canton: canton ?? null,
+                    agent_id: agentId ?? null,
                     created_at: now,
                 };
                 setChats((prev) => [newChat, ...(prev ?? [])]);

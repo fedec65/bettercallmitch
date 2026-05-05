@@ -58,6 +58,8 @@ export interface MikeChat {
   project_id: string | null;
   user_id: string;
   title: string | null;
+  canton: string | null;
+  agent_id: string | null;
   created_at: string;
 }
 

@@ -957,8 +957,9 @@ export function TRChatPanel({
 
     async function handleSubmit(trimmed: string) {
         if (!trimmed || isLoading) return;
-        if (!isModelAvailable(currentModel, apiKeys)) {
-            setApiKeyModalProvider(getModelProvider(currentModel));
+        const provider = getModelProvider(currentModel);
+        if (provider !== "ollama" && !isModelAvailable(currentModel, apiKeys)) {
+            setApiKeyModalProvider(provider);
             return;
         }
 

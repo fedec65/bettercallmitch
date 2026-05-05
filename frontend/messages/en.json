@@ -1,0 +1,112 @@
+{
+  "navigation": {
+    "assistant": "Assistant",
+    "projects": "Projects",
+    "workflows": "Workflows",
+    "tabularReviews": "Tabular Reviews",
+    "account": "Account",
+    "logout": "Logout",
+    "newChat": "New Chat",
+    "closeSidebar": "Close sidebar",
+    "openSidebar": "Open sidebar",
+    "assistantHistory": "Assistant History",
+    "noChats": "No chats yet"
+  },
+  "chat": {
+    "placeholder": "Ask a legal question...",
+    "send": "Send",
+    "cancel": "Cancel",
+    "uploadDocument": "Upload document",
+    "selectWorkflow": "Select workflow",
+    "thinking": "Mitch is thinking...",
+    "bgeSearch": "BGE Search",
+    "draftContract": "Draft Contract",
+    "cantonalLaw": "Cantonal Law",
+    "openProjects": "Open projects",
+    "projects": "Projects",
+    "openWorkflows": "Open workflows",
+    "workflows": "Workflows"
+  },
+  "assistant": {
+    "welcome": "Welcome to Mitch",
+    "subtitle": "Your Swiss AI Legal Assistant",
+    "swissLegalIntelligence": "Swiss Legal Intelligence",
+    "bgeSearch": "BGE Search",
+    "draftContract": "Draft Contract",
+    "cantonalLaw": "Cantonal Law",
+    "disclaimer": "AI can make mistakes. Answers are not legal advice.",
+    "addWorkflow": "Add workflow",
+    "selectWorkflow": "Select workflow",
+    "searchWorkflows": "Search workflows…",
+    "startChatInProject": "Start Chat in a Project"
+  },
+  "projects": {
+    "newProject": "New project",
+    "projectName": "Project name",
+    "cmNumber": "CM number",
+    "addColleagues": "Add colleagues by email",
+    "folderName": "Folder name",
+    "searchProjects": "Search projects…",
+    "loadingVersions": "Loading versions…",
+    "search": "Search…"
+  },
+  "tabularReviews": {
+    "tabularReview": "Tabular Review",
+    "newReview": "New review",
+    "reviewName": "Review name",
+    "columnName": "Column name",
+    "addTag": "Add tag…",
+    "analysisPrompt": "Write the analysis prompt — describe what Mitch should extract from each document for this column…",
+    "searchDocuments": "Search documents…",
+    "searchChats": "Search chats…"
+  },
+  "workflows": {
+    "selectWorkflow": "Select workflow",
+    "searchWorkflows": "Search workflows…",
+    "people": "People",
+    "editColumn": "Edit column"
+  },
+  "account": {
+    "title": "Account",
+    "apiKeys": "API Keys",
+    "modelSettings": "Model Settings",
+    "privacyMode": "Privacy Mode",
+    "language": "Language",
+    "save": "Save"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search…",
+    "selectProject": "Select a project…",
+    "citation": "Citation",
+    "trackedChange": "Tracked Change"
+  },
+  "agents": {
+    "general": "General",
+    "researcher": "Researcher",
+    "litigator": "Litigator",
+    "drafter": "Drafter",
+    "strategist": "Strategist",
+    "cantonal_specialist": "Cantonal Specialist",
+    "citation_verifier": "Citation Verifier",
+    "federal_analyst": "Federal Analyst",
+    "adversarial_advocate": "Advocate",
+    "adversarial_adversary": "Adversary",
+    "adversarial_judge": "Judicial Analyst",
+    "document_analyst": "Document Analyst",
+    "translator": "Translator",
+    "summarizer": "Summarizer",
+    "cas_specialist": "CAS Specialist",
+    "compliance_officer": "Compliance Officer",
+    "corporate_lawyer": "Corporate Lawyer",
+    "employment_lawyer": "Employment Lawyer",
+    "real_estate_lawyer": "Real Estate Lawyer",
+    "tax_advisor": "Tax Advisor"
+  }
+}

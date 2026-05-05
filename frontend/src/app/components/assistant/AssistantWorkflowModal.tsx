@@ -8,6 +8,7 @@ import remarkGfm from "remark-gfm";
 import type { MikeWorkflow } from "../shared/types";
 import { listWorkflows } from "@/app/lib/mikeApi";
 import { BUILT_IN_WORKFLOWS } from "../workflows/builtinWorkflows";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -26,6 +27,8 @@ export function AssistantWorkflowModal({
     projectCmNumber,
     initialWorkflowId,
 }: Props) {
+    const t = useTranslations("assistant");
+    const tNav = useTranslations("navigation");
     const [workflows, setWorkflows] = useState<MikeWorkflow[]>([]);
     const [loading, setLoading] = useState(false);
     const [selected, setSelected] = useState<MikeWorkflow | null>(null);
@@ -97,7 +100,7 @@ export function AssistantWorkflowModal({
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         {projectName ? (
                             <>
-                                <span>Projects</span>
+                                <span>{tNav("projects")}</span>
                                 <span>›</span>
                                 <span>
                                     {projectName}
@@ -106,15 +109,15 @@ export function AssistantWorkflowModal({
                                         : ""}
                                 </span>
                                 <span>›</span>
-                                <span>Assistant</span>
+                                <span>{tNav("assistant")}</span>
                                 <span>›</span>
-                                <span>Add workflow</span>
+                                <span>{t("addWorkflow")}</span>
                             </>
                         ) : (
                             <>
-                                <span>Assistant</span>
+                                <span>{tNav("assistant")}</span>
                                 <span>›</span>
-                                <span>Add workflow</span>
+                                <span>{t("addWorkflow")}</span>
                             </>
                         )}
                     </div>

@@ -1,0 +1,112 @@
+{
+  "navigation": {
+    "assistant": "Assistent",
+    "projects": "Projekte",
+    "workflows": "Workflows",
+    "tabularReviews": "Tabellarische Reviews",
+    "account": "Konto",
+    "logout": "Abmelden",
+    "newChat": "Neuer Chat",
+    "closeSidebar": "Seitenleiste schließen",
+    "openSidebar": "Seitenleiste öffnen",
+    "assistantHistory": "Assistent-Verlauf",
+    "noChats": "Noch keine Chats"
+  },
+  "chat": {
+    "placeholder": "Stellen Sie eine Rechtsfrage...",
+    "send": "Senden",
+    "cancel": "Abbrechen",
+    "uploadDocument": "Dokument hochladen",
+    "selectWorkflow": "Workflow auswählen",
+    "thinking": "Mitch denkt nach...",
+    "bgeSearch": "BGE-Suche",
+    "draftContract": "Vertrag entwerfen",
+    "cantonalLaw": "Kantonales Recht",
+    "openProjects": "Projekte öffnen",
+    "projects": "Projekte",
+    "openWorkflows": "Workflows öffnen",
+    "workflows": "Workflows"
+  },
+  "assistant": {
+    "welcome": "Willkommen bei Mitch",
+    "subtitle": "Ihr Schweizer KI-Rechtsassistent",
+    "swissLegalIntelligence": "Schweizerische Rechtsintelligenz",
+    "bgeSearch": "BGE-Suche",
+    "draftContract": "Vertrag entwerfen",
+    "cantonalLaw": "Kantonales Recht",
+    "disclaimer": "KI kann Fehler machen. Antworten sind keine Rechtsberatung.",
+    "addWorkflow": "Workflow hinzufügen",
+    "selectWorkflow": "Workflow auswählen",
+    "searchWorkflows": "Workflows suchen…",
+    "startChatInProject": "Chat in Projekt starten"
+  },
+  "projects": {
+    "newProject": "Neues Projekt",
+    "projectName": "Projektname",
+    "cmNumber": "CM-Nummer",
+    "addColleagues": "Kollegen per E-Mail hinzufügen",
+    "folderName": "Ordnername",
+    "searchProjects": "Projekte suchen…",
+    "loadingVersions": "Versionen werden geladen…",
+    "search": "Suchen…"
+  },
+  "tabularReviews": {
+    "tabularReview": "Tabellarische Review",
+    "newReview": "Neue Review",
+    "reviewName": "Review-Name",
+    "columnName": "Spaltenname",
+    "addTag": "Tag hinzufügen…",
+    "analysisPrompt": "Analyse-Prompt schreiben – beschreiben Sie, was Mitch aus jedem Dokument für diese Spalte extrahieren soll…",
+    "searchDocuments": "Dokumente suchen…",
+    "searchChats": "Chats suchen…"
+  },
+  "workflows": {
+    "selectWorkflow": "Workflow auswählen",
+    "searchWorkflows": "Workflows suchen…",
+    "people": "Personen",
+    "editColumn": "Spalte bearbeiten"
+  },
+  "account": {
+    "title": "Konto",
+    "apiKeys": "API-Schlüssel",
+    "modelSettings": "Modelleinstellungen",
+    "privacyMode": "Datenschutzmodus",
+    "language": "Sprache",
+    "save": "Speichern"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "retry": "Wiederholen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "search": "Suchen…",
+    "selectProject": "Projekt auswählen…",
+    "citation": "Zitat",
+    "trackedChange": "Nachverfolgte Änderung"
+  },
+  "agents": {
+    "general": "Allgemein",
+    "researcher": "Recherche",
+    "litigator": "Prozessführung",
+    "drafter": "Vertragsentwurf",
+    "strategist": "Strategie",
+    "cantonal_specialist": "Kantonspezialist",
+    "citation_verifier": "Zitatprüfer",
+    "federal_analyst": "Bundesanalyst",
+    "adversarial_advocate": "Anwalt",
+    "adversarial_adversary": "Gegner",
+    "adversarial_judge": "Richterlicher Analyst",
+    "document_analyst": "Dokumentenanalyst",
+    "translator": "Übersetzer",
+    "summarizer": "Zusammenfasser",
+    "cas_specialist": "CAS-Spezialist",
+    "compliance_officer": "Compliance-Offizier",
+    "corporate_lawyer": "Unternehmensrechtler",
+    "employment_lawyer": "Arbeitsrechtler",
+    "real_estate_lawyer": "Immobilienrechtler",
+    "tax_advisor": "Steuerberater"
+  }
+}

@@ -13,11 +13,23 @@ import { downloadsRouter } from "./routes/downloads";
 const app = express();
 const PORT = process.env.PORT ?? 3001;
 
+const ALLOWED_ORIGINS = [
+    process.env.FRONTEND_URL ?? "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+];
+
 app.use(
-  cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
-    credentials: true,
-  }),
+    cors({
+        origin: (origin, callback) => {
+            if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error(`CORS blocked origin: ${origin}`));
+            }
+        },
+        credentials: true,
+    }),
 );
 
 app.use(express.json({ limit: "50mb" }));
@@ -34,6 +46,10 @@ app.use("/download", downloadsRouter);
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
-app.listen(PORT, () => {
-  console.log(`Mitch backend running on port ${PORT}`);
-});
+export { app };
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Mitch backend running on port ${PORT}`);
+    });
+}

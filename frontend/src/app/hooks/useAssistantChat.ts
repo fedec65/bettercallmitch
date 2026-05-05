@@ -908,13 +908,15 @@ export function useAssistantChat({
     const handleNewChat = async (
         message: MikeMessage,
         projectId?: string,
+        canton?: string | null,
+        agentId?: string | null,
     ): Promise<string | null> => {
         if (!message.content.trim()) return null;
 
         setMessages([message]);
         setNewChatMessages([message]);
 
-        const newChatId = await saveChat(projectId);
+        const newChatId = await saveChat(projectId, canton, agentId);
         if (newChatId) {
             setChatId(newChatId);
             setCurrentChatId(newChatId);

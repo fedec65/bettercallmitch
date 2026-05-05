@@ -32,6 +32,8 @@ import {
     type ModelProvider,
 } from "@/app/lib/modelAvailability";
 import type { MikeDocument, MikeMessage } from "../shared/types";
+import { useTranslations } from "next-intl";
+import { AgentSelector } from "./AgentSelector";
 
 export interface ChatInputHandle {
     addDoc: (doc: MikeDocument) => void;
@@ -46,6 +48,8 @@ interface Props {
     onProjectsClick?: () => void;
     projectName?: string;
     projectCmNumber?: string | null;
+    agentId?: string | null;
+    onAgentChange?: (agentId: string | null) => void;
 }
 
 export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
@@ -58,9 +62,12 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
         onProjectsClick,
         projectName,
         projectCmNumber,
+        agentId,
+        onAgentChange,
     }: Props,
     ref,
 ) {
+    const t = useTranslations("chat");
     const [value, setValue] = useState("");
     const [attachedDocs, setAttachedDocs] = useState<MikeDocument[]>([]);
     const [selectedWorkflow, setSelectedWorkflow] = useState<{
@@ -118,8 +125,9 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
     const handleSubmit = () => {
         const query = value.trim();
         if (!query || isLoading) return;
-        if (!isModelAvailable(model, apiKeys)) {
-            setApiKeyModalProvider(getModelProvider(model));
+        const provider = getModelProvider(model);
+        if (provider !== "ollama" && !isModelAvailable(model, apiKeys)) {
+            setApiKeyModalProvider(provider);
             return;
         }
         setValue("");
@@ -223,7 +231,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                         <textarea
                             ref={textareaRef}
                             rows={1}
-                            placeholder="Ask a question about your documents..."
+                            placeholder={t("placeholder")}
                             value={value}
                             onChange={handleChange}
                             onKeyDown={handleKeyDown}
@@ -246,7 +254,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
                         >
                             <Scale className="h-3 w-3" />
-                            BGE Search
+                            {t("bgeSearch")}
                         </button>
                         <button
                             type="button"
@@ -261,7 +269,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
                         >
                             <FileText className="h-3 w-3" />
-                            Draft Contract
+                            {t("draftContract")}
                         </button>
                         <button
                             type="button"
@@ -276,7 +284,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors"
                         >
                             <Landmark className="h-3 w-3" />
-                            Cantonal Law
+                            {t("cantonalLaw")}
                         </button>
                     </div>
 
@@ -296,12 +304,12 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                                 <button
                                     type="button"
                                     onClick={onProjectsClick}
-                                    aria-label="Open projects"
+                                    aria-label={t("openProjects")}
                                     className="flex items-center gap-1.5 rounded-lg px-2 h-8 text-sm text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"
                                 >
                                     <FolderOpen className="h-3.5 w-3.5" />
                                     <span className="hidden sm:inline">
-                                        Projects
+                                        {t("projects")}
                                     </span>
                                 </button>
                             )}
@@ -309,7 +317,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                                 <button
                                     type="button"
                                     onClick={() => setWorkflowModalOpen(true)}
-                                    aria-label="Open workflows"
+                                    aria-label={t("openWorkflows")}
                                     className={`flex items-center gap-1.5 rounded-lg px-2 h-8 text-sm transition-colors ${selectedWorkflow ? "text-blue-600 hover:bg-blue-50" : "text-gray-400 hover:bg-gray-100 hover:text-gray-700"}`}
                                 >
                                     {selectedWorkflow ? (
@@ -318,13 +326,26 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                                         <Library className="h-3.5 w-3.5" />
                                     )}
                                     <span className="hidden sm:inline">
-                                        Workflows
+                                        {t("workflows")}
                                     </span>
                                 </button>
                             )}
                         </div>
 
                         <div className="flex items-center gap-1">
+                            {onAgentChange && (
+                                <AgentSelector
+                                    value={agentId ?? null}
+                                    onChange={onAgentChange}
+                                />
+                            )}
+                            {agentId && !onAgentChange && (
+                                <AgentSelector
+                                    value={agentId}
+                                    onChange={() => {}}
+                                    disabled
+                                />
+                            )}
                             <ModelToggle
                                 value={model}
                                 onChange={setModel}

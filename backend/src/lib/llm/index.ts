@@ -1,5 +1,6 @@
 import { streamClaude, completeClaudeText } from "./claude";
 import { streamGemini, completeGeminiText } from "./gemini";
+import { streamOllama, completeOllamaText } from "./ollama";
 import { providerForModel } from "./models";
 import type { StreamChatParams, StreamChatResult, UserApiKeys } from "./types";
 
@@ -11,6 +12,7 @@ export async function streamChatWithTools(
 ): Promise<StreamChatResult> {
     const provider = providerForModel(params.model);
     if (provider === "claude") return streamClaude(params);
+    if (provider === "ollama") return streamOllama(params);
     return streamGemini(params);
 }
 
@@ -23,5 +25,6 @@ export async function completeText(params: {
 }): Promise<string> {
     const provider = providerForModel(params.model);
     if (provider === "claude") return completeClaudeText(params);
+    if (provider === "ollama") return completeOllamaText(params);
     return completeGeminiText(params);
 }

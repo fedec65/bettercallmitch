@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -27,17 +29,20 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const messages = await getMessages();
     return (
-        <html lang="en">
+        <html lang="de">
             <body
                 className={`${inter.variable} ${ebGaramond.variable} font-sans antialiased`}
             >
-                <Providers>{children}</Providers>
+                <NextIntlClientProvider messages={messages}>
+                    <Providers>{children}</Providers>
+                </NextIntlClientProvider>
             </body>
         </html>
     );
