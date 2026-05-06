@@ -10,7 +10,7 @@ import { SiteLogo } from "@/components/site-logo";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslations } from "next-intl";
 export default function LoginPage() {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const router = useRouter();
     const { isAuthenticated, authLoading } = useAuth();
     const [email, setEmail] = useState("");

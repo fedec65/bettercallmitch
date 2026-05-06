@@ -48,7 +48,7 @@ interface Props {
 }
 
 export function CantonSelector({ value, onChange, disabled }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState("");
     const containerRef = useRef<HTMLDivElement>(null);
@@ -126,7 +126,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
                             <span className="flex h-4 w-4 items-center justify-center">
                                 {value === null && <Check className="h-3.5 w-3.5" />}
                             </span>
-                            <span>{t("common.federalDefault")}</span>
+                            <span>{t("federalDefault")}</span>
                         </button>
 
                         {GROUP_ORDER.map((region) => {

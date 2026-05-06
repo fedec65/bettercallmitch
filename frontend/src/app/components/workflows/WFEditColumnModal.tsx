@@ -33,7 +33,7 @@ interface Props {
 }
 
 export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [draft, setDraft] = useState<ColumnDraft>({
         name: column.name,
         prompt: column.prompt,
@@ -165,7 +165,7 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
                                 <button
                                     type="button"
                                     onClick={() => setPresetsOpen((v) => !v)}
-                                    title={t("common.columnPresets")}
+                                    title={t("columnPresets")}
                                     className="mt-1.5 rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
                                 >
                                     <ChevronDown className={`h-4 w-4 transition-transform ${presetsOpen ? "rotate-180" : ""}`} />
@@ -199,7 +199,7 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
 
                         {/* Format */}
                         <div className="mt-4">
-                            <label className="text-sm font-medium text-gray-500">{t("common.format")}</label>
+                            <label className="text-sm font-medium text-gray-500">{t("format")}</label>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button className="mt-1 flex items-center justify-between rounded-md border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 hover:border-gray-400 focus:outline-none">
@@ -229,7 +229,7 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
                         {/* Tag input */}
                         {draft.format === "tag" && (
                             <div className="mt-3">
-                                <label className="text-sm font-medium text-gray-500">{t("common.tags")}</label>
+                                <label className="text-sm font-medium text-gray-500">{t("tags")}</label>
                                 <div className="mt-1 flex flex-wrap gap-1.5 rounded-md border border-gray-200 px-2 py-1.5 focus-within:border-gray-400">
                                     {draft.tags.map((tag, tagIdx) => (
                                         <span
@@ -256,13 +256,13 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
                                         className="min-w-[80px] flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
                                     />
                                 </div>
-                                <p className="mt-1 text-xs text-gray-400">{t("common.tagHint")}</p>
+                                <p className="mt-1 text-xs text-gray-400">{t("tagHint")}</p>
                             </div>
                         )}
 
                         {/* Prompt */}
                         <div className="mt-4 flex items-center justify-between">
-                            <label className="text-sm font-medium text-gray-500">{t("common.prompt")}</label>
+                            <label className="text-sm font-medium text-gray-500">{t("prompt")}</label>
                             <button
                                 type="button"
                                 onClick={autoGeneratePrompt}

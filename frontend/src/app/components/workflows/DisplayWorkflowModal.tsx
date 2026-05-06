@@ -57,7 +57,7 @@ function SimpleProjectPicker({
     selectedId: string | null;
     onSelect: (id: string | null) => void;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [search, setSearch] = useState("");
     const [open, setOpen] = useState(false);
     const selected = projects.find((p) => p.id === selectedId);
@@ -79,7 +79,7 @@ function SimpleProjectPicker({
                 }}
                 onFocus={() => setOpen(true)}
                 onBlur={() => setTimeout(() => setOpen(false), 150)}
-                placeholder={t("common.selectProject")}
+                placeholder={t("selectProject")}
                 className="w-full text-xs text-gray-700 placeholder:text-gray-400 bg-gray-50 border border-gray-200 rounded-md px-3 py-2 outline-none"
             />
             {selectedId && (
@@ -175,7 +175,7 @@ function MarkdownBody({ content }: { content: string }) {
 // Right panel for assistant workflows (select screen)
 // ---------------------------------------------------------------------------
 function AssistantPanel({ workflow }: { workflow: MikeWorkflow }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     return (
         <div className="flex-1 border-l border-t border-gray-200 flex flex-col overflow-hidden px-3 pb-3">
             <div className="py-3 shrink-0">
@@ -196,7 +196,7 @@ function AssistantPanel({ workflow }: { workflow: MikeWorkflow }) {
 // Right panel for tabular workflows — accordion column list (select screen)
 // ---------------------------------------------------------------------------
 function TabularPanel({ workflow }: { workflow: MikeWorkflow }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
     const columns = (workflow.columns_config ?? []).sort(
         (a, b) => a.index - b.index,
@@ -205,7 +205,7 @@ function TabularPanel({ workflow }: { workflow: MikeWorkflow }) {
     return (
         <div className="flex-1 border-l border-t border-gray-200 flex flex-col overflow-hidden px-3 pb-3">
             <div className="py-3 shrink-0">
-                <p className="text-xs font-medium text-gray-700">{t("common.columns")}</p>
+                <p className="text-xs font-medium text-gray-700">{t("columns")}</p>
             </div>
             <div className="flex-1 overflow-y-auto border border-gray-200 rounded-md bg-gray-50">
                 {columns.length === 0 ? (
@@ -286,7 +286,7 @@ function TabularPanel({ workflow }: { workflow: MikeWorkflow }) {
 // DisplayWorkflowModal
 // ---------------------------------------------------------------------------
 export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [screen, setScreen] = useState<"select" | "configure">("select");
     const [selected, setSelected] = useState<MikeWorkflow | null>(workflow);
     const [listSearch, setListSearch] = useState("");
@@ -504,7 +504,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                         <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                         <input
                                             type="text"
-                                            placeholder={t("common.search")}
+                                            placeholder={t("search")}
                                             value={listSearch}
                                             onChange={(e) => setListSearch(e.target.value)}
                                             className="flex-1 bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none"
@@ -646,7 +646,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                             <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                             <input
                                                 type="text"
-                                                placeholder={t("common.search")}
+                                                placeholder={t("search")}
                                                 value={docSearch}
                                                 onChange={(e) =>
                                                     setDocSearch(e.target.value)
@@ -765,7 +765,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                                     <Search className="h-3 w-3 text-gray-400 shrink-0" />
                                     <input
                                         type="text"
-                                        placeholder={t("common.search")}
+                                        placeholder={t("search")}
                                         value={docSearch}
                                         onChange={(e) =>
                                             setDocSearch(e.target.value)

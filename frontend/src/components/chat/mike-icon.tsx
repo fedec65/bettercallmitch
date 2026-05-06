@@ -18,7 +18,7 @@ export function MikeIcon({
     size?: number;
     style?: React.CSSProperties;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     void mike;
 
     let filter = "";

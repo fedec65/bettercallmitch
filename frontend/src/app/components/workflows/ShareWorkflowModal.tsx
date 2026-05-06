@@ -29,7 +29,7 @@ export function ShareWorkflowModal({
     workflowName,
     onClose,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [pendingEmails, setPendingEmails] = useState<string[]>([]);
     const [allowEdit, setAllowEdit] = useState(false);
     const [existingShares, setExistingShares] = useState<Share[]>([]);
@@ -75,7 +75,7 @@ export function ShareWorkflowModal({
                             {workflowName}
                         </span>
                         <span>›</span>
-                        <span>{t("common.people")}</span>
+                        <span>{t("people")}</span>
                     </div>
                     <button onClick={onClose} className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
                         <X className="h-4 w-4" />
@@ -92,7 +92,7 @@ export function ShareWorkflowModal({
 
                     {/* Permission toggle */}
                     <div className="flex flex-col gap-2">
-                        <span className="text-xs font-medium text-gray-700">{t("common.allowEditing")}</span>
+                        <span className="text-xs font-medium text-gray-700">{t("allowEditing")}</span>
                         <button
                             type="button"
                             onClick={() => setAllowEdit((v) => !v)}
@@ -104,7 +104,7 @@ export function ShareWorkflowModal({
 
                     {/* Existing access */}
                     <div>
-                        <p className="text-xs font-medium text-gray-700 mb-2">{t("common.peopleWithAccess")}</p>
+                        <p className="text-xs font-medium text-gray-700 mb-2">{t("peopleWithAccess")}</p>
                         {loading ? (
                             <div className="space-y-2">
                                 {[1, 2].map((i) => (
@@ -115,7 +115,7 @@ export function ShareWorkflowModal({
                                 ))}
                             </div>
                         ) : existingShares.length === 0 ? (
-                            <p className="text-sm text-gray-400">{t("common.none")}</p>
+                            <p className="text-sm text-gray-400">{t("none")}</p>
                         ) : (
                             <div className="space-y-1">
                                 {existingShares.map((share) => (

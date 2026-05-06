@@ -41,7 +41,7 @@ export function AddNewTRModal({
     projectName,
     projectCmNumber,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const isProjectMode = fixedProjectDocs !== undefined;
     const [title, setTitle] = useState("");
     const [underProject, setUnderProject] = useState(false);

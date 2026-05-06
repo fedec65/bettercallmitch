@@ -232,7 +232,7 @@ function TRAssistantMessage({
     msg: TRMessage;
     onCitationClick: (colIdx: number, rowIdx: number) => void;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const annotations = msg.annotations ?? [];
     const citationsList: TRCitationAnnotation[] = [];
 
@@ -457,7 +457,7 @@ function TRChatInput({
     onModelChange: (id: string) => void;
     apiKeys: { claudeApiKey: string | null; geminiApiKey: string | null };
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [value, setValue] = useState("");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -535,7 +535,7 @@ function HistoryDropdown({
     currentChatId: string | null;
     onLoad: (chatId: string) => void;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [query, setQuery] = useState("");
     const filtered = chats
         .filter((c) => c.id !== currentChatId)
@@ -610,7 +610,7 @@ export function TRChatPanel({
     initialChatId,
     onChatIdChange,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const { profile, updateModelPreference } = useUserProfile();
     const apiKeys = {
         claudeApiKey: profile?.claudeApiKey ?? null,
@@ -1354,7 +1354,7 @@ export function TRChatPanel({
                     <div ref={historyRef} className="relative">
                         <button
                             onClick={() => setHistoryOpen((v) => !v)}
-                            title={t("common.chatHistory")}
+                            title={t("chatHistory")}
                             className={`flex items-center justify-center h-7 w-7 rounded-md transition-colors ${historyOpen ? "text-gray-900" : "text-gray-400 hover:text-gray-700"}`}
                         >
                             <Clock className="h-3.5 w-3.5" />
@@ -1371,7 +1371,7 @@ export function TRChatPanel({
                     </div>
                     <button
                         onClick={handleNewChat}
-                        title={t("common.newChat")}
+                        title={t("newChat")}
                         className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
                     >
                         <MessageSquarePlus className="h-3.5 w-3.5" />
@@ -1379,7 +1379,7 @@ export function TRChatPanel({
                     {currentChatId && (
                         <button
                             onClick={handleDeleteChat}
-                            title={t("common.deleteChat")}
+                            title={t("deleteChat")}
                             className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-red-600 transition-colors"
                         >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -1387,7 +1387,7 @@ export function TRChatPanel({
                     )}
                     <button
                         onClick={onClose}
-                        title={t("common.close")}
+                        title={t("close")}
                         className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
                     >
                         <X className="h-3.5 w-3.5" />

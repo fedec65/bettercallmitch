@@ -433,7 +433,7 @@ function DocReadBlock({
     showConnector?: boolean;
     isStreaming?: boolean;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     return (
         <div className="flex items-start text-sm font-serif text-gray-500 relative">
             {showConnector && (
@@ -728,7 +728,7 @@ function WorkflowAppliedBlock({
     showConnector?: boolean;
     onClick?: () => void;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     return (
         <div className="flex items-start text-sm font-serif text-gray-500 relative">
             {showConnector && (
@@ -736,7 +736,7 @@ function WorkflowAppliedBlock({
             )}
             <div className="mt-2 w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
             <div className="ml-2 min-w-0 flex-1 whitespace-normal break-words">
-                <span className="font-medium">{t("common.appliedWorkflow")}</span>{" "}
+                <span className="font-medium">{t("appliedWorkflow")}</span>{" "}
                 {onClick ? (
                     <button
                         onClick={onClick}
@@ -1076,7 +1076,7 @@ export function AssistantMessage({
     isEditReloading,
     resolvedEditStatuses,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const messageKey = useId();
     const contentDivRef = useRef<HTMLDivElement | null>(null);
     const [isCopied, setIsCopied] = useState(false);
@@ -1241,7 +1241,7 @@ export function AssistantMessage({
                         <div className="absolute bottom-0 w-[1px] bg-gray-300 top-[13px] left-[2.5px] h-[calc(100%+11px)]" />
                     )}
                     <div className="w-1.5 h-1.5 rounded-full border border-gray-400 border-t-transparent animate-spin shrink-0" />
-                    <span className="font-medium ml-2">{t("common.running")}</span>
+                    <span className="font-medium ml-2">{t("running")}</span>
                     <span className="ml-1">
                         {event.name ? `${event.name}...` : "tool..."}
                     </span>

@@ -22,7 +22,7 @@ import { fetchOllamaModels } from "@/app/lib/mikeApi";
 import { useTranslations } from "next-intl";
 
 export default function ModelsAndApiKeysPage() {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const {
         profile,
         updateModelPreference,
@@ -255,7 +255,7 @@ function OllamaHostField({
     initialValue: string;
     onSave: (value: string) => Promise<boolean>;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [value, setValue] = useState(initialValue);
     const [isSaving, setIsSaving] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -378,7 +378,7 @@ function ApiKeyField({
     initialValue: string;
     onSave: (value: string) => Promise<boolean>;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [value, setValue] = useState(initialValue);
     const [reveal, setReveal] = useState(false);
     const [isSaving, setIsSaving] = useState(false);

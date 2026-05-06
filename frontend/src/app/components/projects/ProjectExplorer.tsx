@@ -58,7 +58,7 @@ export function ProjectExplorer({
     onMoveDoc,
     onMoveFolder,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
     const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
     const [creatingIn, setCreatingIn] = useState<string | null | undefined>(undefined);
@@ -355,7 +355,7 @@ export function ProjectExplorer({
 
             {/* Empty state */}
             {documents.length === 0 && folders.length === 0 && creatingIn === undefined && (
-                <li className="px-4 py-2 text-xs text-gray-400">{t("common.noDocumentsInProject")}</li>
+                <li className="px-4 py-2 text-xs text-gray-400">{t("noDocumentsInProject")}</li>
             )}
 
             {/* Context menu */}

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function ProjectPicker({ projects, loading, selectedId, onSelect }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [search, setSearch] = useState("");
     const q = search.toLowerCase().trim();
     const filtered = q ? projects.filter((p) => p.name.toLowerCase().includes(q)) : projects;

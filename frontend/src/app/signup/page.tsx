@@ -12,7 +12,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useTranslations } from "next-intl";
 
 export default function SignupPage() {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const router = useRouter();
     const { isAuthenticated, authLoading } = useAuth();
     const [email, setEmail] = useState("");

@@ -23,7 +23,7 @@ export function EmailPillInput({
     placeholder,
     autoFocus = false,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const resolvedPlaceholder = placeholder || t("addByEmail");
     const [input, setInput] = useState("");
     const [validating, setValidating] = useState(false);
@@ -114,7 +114,7 @@ export function EmailPillInput({
                 />
             </div>
             {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
-            {validating && <p className="mt-1.5 text-xs text-gray-400">{t("common.checking")}</p>}
+            {validating && <p className="mt-1.5 text-xs text-gray-400">{t("checking")}</p>}
         </div>
     );
 }

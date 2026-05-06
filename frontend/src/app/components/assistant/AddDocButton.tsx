@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [isOpen, setIsOpen] = useState(false);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -103,7 +103,7 @@ export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: 
                         onClick={onBrowseAll}
                     >
                         <LayoutGridIcon className="h-4 w-4 mr-2 text-gray-500" />
-                        <span className="text-sm">{t("common.browseAll")}</span>
+                        <span className="text-sm">{t("browseAll")}</span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

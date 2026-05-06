@@ -20,7 +20,7 @@ interface Props {
 }
 
 export function NewProjectModal({ open, onClose, onCreated }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [name, setName] = useState("");
     const [cmNumber, setCmNumber] = useState("");
     const [sharedEmails, setSharedEmails] = useState<string[]>([]);
@@ -146,7 +146,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
 
                         {/* Documents */}
                         <div className="mt-4 space-y-2">
-                            <p className="text-xs font-medium text-gray-700">{t("common.selectDocuments")}</p>
+                            <p className="text-xs font-medium text-gray-700">{t("selectDocuments")}</p>
                                 <FileDirectory
                                     standaloneDocs={standaloneDocuments}
                                     directoryProjects={dirProjects}

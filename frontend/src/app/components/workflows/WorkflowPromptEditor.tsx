@@ -56,7 +56,7 @@ export function WorkflowPromptEditor({
     onChange,
     readOnly = false,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const lastEmittedRef = useRef(value);
 
     const editor = useEditor({
@@ -113,7 +113,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 1 })}
-                        title={t("common.heading1")}
+                        title={t("heading1")}
                     >
                         <Heading1 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -126,7 +126,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 2 })}
-                        title={t("common.heading2")}
+                        title={t("heading2")}
                     >
                         <Heading2 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -139,7 +139,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 3 })}
-                        title={t("common.heading3")}
+                        title={t("heading3")}
                     >
                         <Heading3 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -149,7 +149,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleBold().run()
                         }
                         active={editor.isActive("bold")}
-                        title={t("common.bold")}
+                        title={t("bold")}
                     >
                         <Bold className="h-4 w-4" />
                     </ToolbarBtn>
@@ -158,7 +158,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleItalic().run()
                         }
                         active={editor.isActive("italic")}
-                        title={t("common.italic")}
+                        title={t("italic")}
                     >
                         <Italic className="h-4 w-4" />
                     </ToolbarBtn>
@@ -168,7 +168,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleBulletList().run()
                         }
                         active={editor.isActive("bulletList")}
-                        title={t("common.bulletList")}
+                        title={t("bulletList")}
                     >
                         <List className="h-4 w-4" />
                     </ToolbarBtn>
@@ -177,7 +177,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleOrderedList().run()
                         }
                         active={editor.isActive("orderedList")}
-                        title={t("common.numberedList")}
+                        title={t("numberedList")}
                     >
                         <ListOrdered className="h-4 w-4" />
                     </ToolbarBtn>

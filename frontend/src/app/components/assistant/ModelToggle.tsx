@@ -43,7 +43,7 @@ interface Props {
 }
 
 export function ModelToggle({ value, onChange, apiKeys }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const [isOpen, setIsOpen] = useState(false);
     const [ollamaModels, setOllamaModels] = useState<ModelOption[]>([]);
     const [ollamaAvailable, setOllamaAvailable] = useState(false);
@@ -83,7 +83,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
                     title={
                         !selectedAvailable
                             ? t("errors.apiKeyMissingForModel")
-                            : t("common.chooseModel")
+                            : t("chooseModel")
                     }
                 >
                     {!selectedAvailable && (
@@ -123,7 +123,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
                                         {!available && (
                                             <AlertCircle
                                                 className="h-3.5 w-3.5 text-red-500 ml-1"
-                                                aria-label={t("common.apiKeyMissing")}
+                                                aria-label={t("apiKeyMissing")}
                                             />
                                         )}
                                         {m.id === value && available && (

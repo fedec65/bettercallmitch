@@ -200,7 +200,7 @@ function CitationHeader({
     filename: string;
     isReloading: boolean;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const displayQuote = displayCitationQuote(citation);
     const pagesLabel = formatCitationPage(citation);
     return (
@@ -243,7 +243,7 @@ function TrackedChangeHeader({
     filename: string;
     isReloading: boolean;
 }) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const { edit, isEditReloading, onResolveStart, onResolved, onError } = mode;
     return (
         <div className="pt-2 pb-3">

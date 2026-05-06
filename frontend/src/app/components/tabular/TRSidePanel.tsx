@@ -68,7 +68,7 @@ export function TRSidePanel({
     citationQuote,
     citationPage,
 }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const sortedColumns = [...columns].sort((a, b) => a.index - b.index);
     const currentPos = sortedColumns.findIndex((c) => c.index === column.index);
     const prevColumn = currentPos > 0 ? sortedColumns[currentPos - 1] : null;

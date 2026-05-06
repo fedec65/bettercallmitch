@@ -49,7 +49,7 @@ interface Props {
 }
 
 export function TRView({ reviewId, projectId }: Props) {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const { setSidebarOpen } = useSidebar();
     const [review, setReview] = useState<TabularReview | null>(null);
     const [project, setProject] = useState<MikeProject | null>(null);
@@ -545,8 +545,8 @@ export function TRView({ reviewId, projectId }: Props) {
                                             ? "text-gray-300 cursor-default"
                                             : "text-gray-500 hover:text-gray-900 cursor-pointer"
                                     }`}
-                                    title={t("common.peopleWithAccess")}
-                                    aria-label={t("common.peopleWithAccess")}
+                                    title={t("peopleWithAccess")}
+                                    aria-label={t("peopleWithAccess")}
                                 >
                                     <Users className="h-4 w-4" />
                                 </button>
@@ -561,7 +561,7 @@ export function TRView({ reviewId, projectId }: Props) {
                                     })
                                 }
                                 disabled={columns.length === 0 || documents.length === 0}
-                                title={t("common.exportToExcel")}
+                                title={t("exportToExcel")}
                                 className={`flex h-8 items-center justify-center gap-1.5 px-3 text-sm transition-colors ${
                                     columns.length === 0 || documents.length === 0
                                         ? "text-gray-300 cursor-default"

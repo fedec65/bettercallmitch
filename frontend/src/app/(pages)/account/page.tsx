@@ -11,7 +11,7 @@ import { deleteAccount } from "@/app/lib/mikeApi";
 import { useTranslations } from "next-intl";
 
 export default function AccountPage() {
-    const t = useTranslations("common");
+    const t = useTranslations();
     const router = useRouter();
     const { user, signOut } = useAuth();
     const { profile, updateDisplayName, updateOrganisation } = useUserProfile();
@@ -84,7 +84,7 @@ export default function AccountPage() {
             {/* Profile Settings */}
             <div className="pb-6">
                 <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-medium font-serif">{t("common.profile")}</h2>
+                    <h2 className="text-2xl font-medium font-serif">{t("profile")}</h2>
                 </div>
                 <div className="space-y-4">
                     <div>
