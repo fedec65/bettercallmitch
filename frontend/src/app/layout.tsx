@@ -3,7 +3,7 @@ import { Inter, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getLocale } from "next-intl/server";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -34,9 +34,10 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const locale = await getLocale();
     const messages = await getMessages();
     return (
-        <html lang="de">
+        <html lang={locale}>
             <body
                 className={`${inter.variable} ${ebGaramond.variable} font-sans antialiased`}
             >
