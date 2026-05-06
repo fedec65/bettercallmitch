@@ -2,6 +2,7 @@
 
 import { FileText, File, X, AlertCircle, Loader2 } from "lucide-react";
 import type { MikeDocument } from "./types";
+import { useTranslations } from "next-intl";
 
 interface Props {
   document: MikeDocument;
@@ -27,6 +28,7 @@ function formatBytes(bytes: number): string {
 }
 
 export function DocumentCard({ document, onRemove, onClick, selected }: Props) {
+    const t = useTranslations("common");
   const isError = document.status === "error";
   const isProcessing = document.status === "pending" || document.status === "processing";
 
@@ -76,7 +78,7 @@ export function DocumentCard({ document, onRemove, onClick, selected }: Props) {
             onRemove(document.id);
           }}
           className="shrink-0 rounded p-0.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-          aria-label="Remove document"
+          aria-label={t("removeDocument")}
         >
           <X className="h-3.5 w-3.5" />
         </button>

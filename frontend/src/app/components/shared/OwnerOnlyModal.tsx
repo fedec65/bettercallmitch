@@ -2,6 +2,7 @@
 
 import { createPortal } from "react-dom";
 import { Lock, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -25,11 +26,13 @@ interface Props {
 export function OwnerOnlyModal({
     open,
     onClose,
-    title = "Owner-only action",
+    title,
     action,
     ownerEmail,
     message,
 }: Props) {
+    const t = useTranslations("common");
+    const displayTitle = title || t("ownerOnlyAction");
     if (!open) return null;
 
     const body =
@@ -52,7 +55,7 @@ export function OwnerOnlyModal({
                     <div className="flex items-center gap-2">
                         <Lock className="h-4 w-4 text-amber-600" />
                         <h2 className="text-base font-medium text-gray-900">
-                            {title}
+                            {displayTitle}
                         </h2>
                     </div>
                     <button

@@ -11,6 +11,7 @@ import type { MikeProject } from "@/app/components/shared/types";
 import { NewProjectModal } from "./NewProjectModal";
 import { ToolbarTabs } from "@/app/components/shared/ToolbarTabs";
 import { RowActions } from "@/app/components/shared/RowActions";
+import { useTranslations } from "next-intl";
 
 function formatDate(iso: string) {
     return new Date(iso).toLocaleDateString(undefined, {
@@ -26,6 +27,7 @@ const CHECK_W = "w-8 shrink-0";
 const NAME_COL_W = "w-[300px] shrink-0";
 
 export function ProjectsOverview() {
+    const t = useTranslations("common");
     const [projects, setProjects] = useState<MikeProject[]>([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
@@ -184,7 +186,7 @@ export function ProjectsOverview() {
                     <HeaderSearchBtn
                         value={search}
                         onChange={setSearch}
-                        placeholder="Search projects…"
+                        placeholder={t("projects.searchProjects")}
                     />
                     <button
                         onClick={() => setModalOpen(true)}
@@ -224,12 +226,12 @@ export function ProjectsOverview() {
                         Name
                     </div>
                     <div className="ml-auto w-32 shrink-0 text-left">CM</div>
-                    <div className="w-24 shrink-0 text-left">Files</div>
-                    <div className="w-24 shrink-0 text-left">Chats</div>
+                    <div className="w-24 shrink-0 text-left">{t("common.files")}</div>
+                    <div className="w-24 shrink-0 text-left">{t("common.chats")}</div>
                     <div className="w-36 shrink-0 text-left">
                         Tabular Reviews
                     </div>
-                    <div className="w-32 shrink-0 text-left">Created</div>
+                    <div className="w-32 shrink-0 text-left">{t("common.created")}</div>
                     <div className="w-8 shrink-0" />
                 </div>
 
@@ -368,7 +370,7 @@ export function ProjectsOverview() {
                                             onBlur={() =>
                                                 handleCmSubmit(project.id)
                                             }
-                                            placeholder="CM #"
+                                            placeholder={t("projects.cmNumberShort")}
                                             className="w-full text-sm text-gray-800 bg-transparent outline-none"
                                         />
                                     ) : (

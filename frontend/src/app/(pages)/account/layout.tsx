@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslations } from "next-intl";
 
 interface TabDef {
     id: string;
@@ -21,6 +22,7 @@ export default function AccountLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const t = useTranslations("common");
     const router = useRouter();
     const pathname = usePathname();
     const { isAuthenticated, authLoading } = useAuth();
@@ -52,7 +54,7 @@ export default function AccountLayout({
 
                 <div className="flex flex-col md:flex-row gap-6 md:gap-10">
                     <nav
-                        aria-label="Settings"
+                        aria-label={t("settings")}
                         className="md:w-56 shrink-0 flex md:flex-col gap-1 overflow-x-auto"
                     >
                         {TABS.map((tab) => {

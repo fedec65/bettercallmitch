@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export function MikeIcon({
     spin = false,
@@ -17,6 +18,7 @@ export function MikeIcon({
     size?: number;
     style?: React.CSSProperties;
 }) {
+    const t = useTranslations("common");
     void mike;
 
     let filter = "";
@@ -38,7 +40,7 @@ export function MikeIcon({
         >
             <img
                 src="/images/snowflake-icon.png"
-                alt="BetterCallMitCH"
+                alt={t("assistant.welcome")}
                 width={size}
                 height={size}
                 style={{

@@ -55,6 +55,7 @@ import type {
     MikeProject,
 } from "@/app/components/shared/types";
 import { expandCitationToEntries } from "@/app/components/shared/types";
+import { useTranslations } from "next-intl";
 
 interface Props {
     params: Promise<{ id: string; chatId: string }>;
@@ -196,6 +197,7 @@ function Divider({ onDrag }: { onDrag: (dx: number) => void }) {
 }
 
 export default function ProjectAssistantChatPage({ params }: Props) {
+    const t = useTranslations("common");
     const { id: projectId, chatId } = use(params);
     const router = useRouter();
 
@@ -800,7 +802,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                     <button
                         onClick={handleNewChat}
                         disabled={creatingChat}
-                        title="New chat"
+                        title={t("common.newChat")}
                         className="flex items-center justify-center p-1.5 text-gray-500 hover:text-gray-900 transition-colors disabled:opacity-40"
                     >
                         {creatingChat ? (
@@ -812,7 +814,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                     <button
                         onClick={handleDeleteChat}
                         disabled={deletingChat}
-                        title="Delete chat"
+                        title={t("common.deleteChat")}
                         className="flex items-center justify-center p-1.5 text-gray-500 hover:text-red-600 transition-colors disabled:opacity-40"
                     >
                         {deletingChat ? (
@@ -879,7 +881,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                                             fileInputRef.current?.click()
                                         }
                                         disabled={uploading}
-                                        title="Upload documents"
+                                        title={t("common.uploadDocuments")}
                                         className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-40"
                                     >
                                         {uploading ? (
@@ -892,7 +894,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                                         onClick={() =>
                                             setExplorerCollapsed(true)
                                         }
-                                        title="Collapse explorer"
+                                        title={t("common.collapseExplorer")}
                                         className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                                     >
                                         <ChevronLeft className="h-3.5 w-3.5" />
@@ -956,7 +958,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                         <div className="h-10 flex items-center justify-center border-b border-gray-200 shrink-0 px-1">
                             <button
                                 onClick={() => setExplorerCollapsed(false)}
-                                title="Expand explorer"
+                                title={t("common.expandExplorer")}
                                 className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                             >
                                 <ChevronRight className="h-3.5 w-3.5" />

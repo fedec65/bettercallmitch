@@ -8,8 +8,10 @@ import { LogOut, Check } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 import { deleteAccount } from "@/app/lib/mikeApi";
+import { useTranslations } from "next-intl";
 
 export default function AccountPage() {
+    const t = useTranslations("common");
     const router = useRouter();
     const { user, signOut } = useAuth();
     const { profile, updateDisplayName, updateOrganisation } = useUserProfile();
@@ -45,7 +47,7 @@ export default function AccountPage() {
         } catch {
             setIsDeleting(false);
             setDeleteConfirm(false);
-            alert("Failed to delete account. Please try again.");
+            alert(t("errors.failedToDeleteAccount"));
         }
     };
 
@@ -58,7 +60,7 @@ export default function AccountPage() {
             setSaved(true);
             setTimeout(() => setSaved(false), 2000);
         } else {
-            alert("Failed to update display name. Please try again.");
+            alert(t("errors.failedToUpdateDisplayName"));
         }
     };
 
@@ -71,7 +73,7 @@ export default function AccountPage() {
             setOrgSaved(true);
             setTimeout(() => setOrgSaved(false), 2000);
         } else {
-            alert("Failed to update organisation. Please try again.");
+            alert(t("errors.failedToUpdateOrganisation"));
         }
     };
 
@@ -82,7 +84,7 @@ export default function AccountPage() {
             {/* Profile Settings */}
             <div className="pb-6">
                 <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-medium font-serif">Profile</h2>
+                    <h2 className="text-2xl font-medium font-serif">{t("common.profile")}</h2>
                 </div>
                 <div className="space-y-4">
                     <div>
@@ -94,7 +96,7 @@ export default function AccountPage() {
                                 type="text"
                                 value={displayName}
                                 onChange={(e) => setDisplayName(e.target.value)}
-                                placeholder="Enter your name"
+                                placeholder={t("account.enterName")}
                                 className="flex-1"
                             />
                             <Button
@@ -128,7 +130,7 @@ export default function AccountPage() {
                                 onChange={(e) =>
                                     setOrganisation(e.target.value)
                                 }
-                                placeholder="Enter your organisation"
+                                placeholder={t("account.enterOrganisation")}
                                 className="flex-1"
                             />
                             <Button

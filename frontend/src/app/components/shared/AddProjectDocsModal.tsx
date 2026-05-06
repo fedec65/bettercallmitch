@@ -7,6 +7,7 @@ import { getProject, uploadProjectDocument } from "@/app/lib/mikeApi";
 import type { MikeDocument } from "./types";
 import { DocFileIcon } from "./FileDirectory";
 import { VersionChip } from "./VersionChip";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -37,6 +38,7 @@ export function AddProjectDocsModal({
     excludeDocIds,
     allowMultiple = true,
 }: Props) {
+    const t = useTranslations("common");
     const [docs, setDocs] = useState<MikeDocument[]>([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
@@ -145,7 +147,7 @@ export function AddProjectDocsModal({
                         <Search className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                         <input
                             type="text"
-                            placeholder="Search…"
+                            placeholder={t("common.search")}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="flex-1 bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"

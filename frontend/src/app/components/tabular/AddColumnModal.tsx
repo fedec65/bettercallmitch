@@ -8,6 +8,7 @@ import { generateTabularColumnPrompt } from "@/app/lib/mikeApi";
 import { FORMAT_OPTIONS, formatLabel, formatIcon } from "./columnFormat";
 import { TAG_COLORS } from "./pillUtils";
 import { getPresetConfig, PROMPT_PRESETS } from "./columnPresets";
+import { useTranslations } from "next-intl";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -43,6 +44,7 @@ interface Props {
 }
 
 export function AddColumnModal({ open, existingCount, onClose, onAdd, editingColumn, onSave, onDelete }: Props) {
+    const t = useTranslations("common");
     const isEditing = !!editingColumn;
     const [columns, setColumns] = useState<ColumnDraft[]>([{ ...EMPTY_DRAFT }]);
     const [generatingIndices, setGeneratingIndices] = useState<number[]>([]);
@@ -196,7 +198,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-5 pb-2">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <span>Tabular Review</span>
+                        <span>{t("tabularReviews.tabularReview")}</span>
                         <span>›</span>
                         <span>{isEditing ? "Edit column" : "New column"}</span>
                     </div>
@@ -251,7 +253,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                                                         : {}),
                                                 });
                                             }}
-                                            placeholder="Column name"
+                                            placeholder={t("tabularReviews.columnName")}
                                             className="flex-1 text-2xl font-serif text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
                                             autoFocus={index === 0}
                                         />
@@ -264,7 +266,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                                                         : index,
                                                 )
                                             }
-                                            title="Column presets"
+                                            title={t("common.columnPresets")}
                                             className="mt-1.5 rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
                                         >
                                             <ChevronDown
@@ -422,7 +424,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                                                     handleTagKeyDown(e, index)
                                                 }
                                                 onBlur={() => commitTag(index)}
-                                                placeholder="Add tag…"
+                                                placeholder={t("tabularReviews.addTag")}
                                                 className="min-w-[80px] flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
                                             />
                                         </div>
@@ -464,7 +466,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                                             prompt: e.target.value,
                                         })
                                     }
-                                    placeholder="Write the analysis prompt — describe what BetterCallMitCH should extract from each document for this column…"
+                                    placeholder={t("tabularReviews.analysisPrompt")}
                                     className="mt-2 w-full rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:border-gray-400 focus:outline-none bg-transparent resize-none leading-relaxed"
                                 />
                             </div>

@@ -14,6 +14,7 @@ import {
 } from "@/app/lib/mikeApi";
 import { FileDirectory } from "../shared/FileDirectory";
 import { BUILT_IN_WORKFLOWS } from "../workflows/builtinWorkflows";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -40,6 +41,7 @@ export function AddNewTRModal({
     projectName,
     projectCmNumber,
 }: Props) {
+    const t = useTranslations("common");
     const isProjectMode = fixedProjectDocs !== undefined;
     const [title, setTitle] = useState("");
     const [underProject, setUnderProject] = useState(false);
@@ -229,15 +231,15 @@ export function AddNewTRModal({
                                     {projectCmNumber ? ` (#${projectCmNumber})` : ""}
                                 </span>
                                 <span>›</span>
-                                <span>Tabular Reviews</span>
+                                <span>{t("tabularReviews.tabularReview")}</span>
                                 <span>›</span>
-                                <span>New review</span>
+                                <span>{t("tabularReviews.newReview")}</span>
                             </>
                         ) : (
                             <>
-                                <span>Tabular Reviews</span>
+                                <span>{t("tabularReviews.tabularReview")}</span>
                                 <span>›</span>
-                                <span>New review</span>
+                                <span>{t("tabularReviews.newReview")}</span>
                             </>
                         )}
                     </div>
@@ -259,7 +261,7 @@ export function AddNewTRModal({
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Review name"
+                            placeholder={t("tabularReviews.reviewName")}
                             className="w-full text-2xl font-serif text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent"
                             autoFocus
                         />

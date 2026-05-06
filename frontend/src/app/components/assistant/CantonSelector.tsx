@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MapPin, ChevronDown, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export interface CantonOption {
     code: string;
@@ -47,6 +48,7 @@ interface Props {
 }
 
 export function CantonSelector({ value, onChange, disabled }: Props) {
+    const t = useTranslations("common");
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState("");
     const containerRef = useRef<HTMLDivElement>(null);
@@ -102,7 +104,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
                     <div className="border-b border-gray-100 p-2">
                         <input
                             type="text"
-                            placeholder="Search canton..."
+                            placeholder={t("searchCanton")}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="w-full rounded-md border border-gray-200 px-2 py-1 text-sm outline-none focus:border-red-400"

@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslations } from "next-intl";
 export default function LoginPage() {
+    const t = useTranslations("common");
     const router = useRouter();
     const { isAuthenticated, authLoading } = useAuth();
     const [email, setEmail] = useState("");
@@ -80,7 +82,7 @@ export default function LoginPage() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter your email"
+                                placeholder={t("login.emailPlaceholder")}
                                 required
                                 className="w-full"
                             />
@@ -98,7 +100,7 @@ export default function LoginPage() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
+                                placeholder={t("login.passwordPlaceholder")}
                                 required
                                 className="w-full"
                             />

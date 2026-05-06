@@ -44,11 +44,13 @@
     "newProject": "Neues Projekt",
     "projectName": "Projektname",
     "cmNumber": "CM-Nummer",
+    "cmNumberShort": "CM-Nr.",
     "addColleagues": "Kollegen per E-Mail hinzufügen",
     "folderName": "Ordnername",
     "searchProjects": "Projekte suchen…",
     "loadingVersions": "Versionen werden geladen…",
-    "search": "Suchen…"
+    "search": "Suchen…",
+    "versionName": "Versionsname"
   },
   "tabularReviews": {
     "tabularReview": "Tabellarische Review",
@@ -58,13 +60,18 @@
     "addTag": "Tag hinzufügen…",
     "analysisPrompt": "Analyse-Prompt schreiben – beschreiben Sie, was BetterCallMitCH aus jedem Dokument für diese Spalte extrahieren soll…",
     "searchDocuments": "Dokumente suchen…",
-    "searchChats": "Chats suchen…"
+    "searchChats": "Chats suchen…",
+    "askAboutDocuments": "Stellen Sie eine Frage zu Ihren Dokumenten..."
   },
   "workflows": {
     "selectWorkflow": "Workflow auswählen",
     "searchWorkflows": "Workflows suchen…",
     "people": "Personen",
-    "editColumn": "Spalte bearbeiten"
+    "editColumn": "Spalte bearbeiten",
+    "workflowName": "Workflow-Name",
+    "enterPracticeArea": "Rechtsgebiet eingeben…",
+    "additionalInstructions": "Zusätzliche Anweisungen zum Workflow-Prompt hinzufügen…",
+    "addPeopleByEmail": "Personen per E-Mail hinzufügen…"
   },
   "account": {
     "title": "Konto",
@@ -72,7 +79,20 @@
     "modelSettings": "Modelleinstellungen",
     "privacyMode": "Datenschutzmodus",
     "language": "Sprache",
-    "save": "Speichern"
+    "save": "Speichern",
+    "enterName": "Namen eingeben",
+    "enterOrganisation": "Organisation eingeben"
+  },
+  "login": {
+    "emailPlaceholder": "E-Mail eingeben",
+    "passwordPlaceholder": "Passwort eingeben"
+  },
+  "signup": {
+    "yourName": "Ihr Name",
+    "yourOrganisation": "Ihre Organisation",
+    "emailPlaceholder": "E-Mail eingeben",
+    "createPassword": "Passwort erstellen (min. 6 Zeichen)",
+    "confirmPassword": "Passwort bestätigen"
   },
   "common": {
     "loading": "Laden...",
@@ -85,7 +105,68 @@
     "search": "Suchen…",
     "selectProject": "Projekt auswählen…",
     "citation": "Zitat",
-    "trackedChange": "Nachverfolgte Änderung"
+    "trackedChange": "Nachverfolgte Änderung",
+    "newChat": "Neuer Chat",
+    "deleteChat": "Chat löschen",
+    "uploadDocuments": "Dokumente hochladen",
+    "collapseExplorer": "Explorer einklappen",
+    "expandExplorer": "Explorer ausklappen",
+    "peopleWithAccess": "Personen mit Zugriff",
+    "rename": "Umbenennen",
+    "download": "Herunterladen",
+    "ownerOnlyAction": "Nur für Besitzer",
+    "addMember": "Mitglied hinzufügen",
+    "removeAccess": "Zugriff entfernen",
+    "regenerate": "Neu generieren",
+    "exportToExcel": "Nach Excel exportieren",
+    "closePanel": "Panel schließen",
+    "chatHistory": "Chat-Verlauf",
+    "copyQuoteAndCitation": "Zitat und Quelle kopieren",
+    "dismissWarning": "Warnung schließen",
+    "removeDocument": "Dokument entfernen",
+    "apiKeyMissing": "API-Schlüssel fehlt",
+    "settings": "Einstellungen",
+    "columnPresets": "Spalten-Voreinstellungen",
+    "heading1": "Überschrift 1",
+    "heading2": "Überschrift 2",
+    "heading3": "Überschrift 3",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "bulletList": "Aufzählungsliste",
+    "numberedList": "Nummerierte Liste",
+    "find": "Suchen",
+    "addByEmail": "Per E-Mail hinzufügen…",
+    "searchCanton": "Kanton suchen...",
+    "columns": "Spalten",
+    "documents": "Dokumente",
+    "project": "Projekt",
+    "created": "Erstellt",
+    "format": "Format",
+    "prompt": "Prompt",
+    "browseAll": "Alle durchsuchen",
+    "selectDocuments": "Dokumente auswählen",
+    "projectNotFound": "Projekt nicht gefunden",
+    "type": "Typ",
+    "size": "Größe",
+    "version": "Version",
+    "updated": "Aktualisiert",
+    "dropFilesHere": "PDF- oder DOCX-Dateien hier ablegen",
+    "files": "Dateien",
+    "chats": "Chats",
+    "profile": "Profil",
+    "practiceArea": "Rechtsgebiet",
+    "allowEditing": "Bearbeitung durch Empfänger erlauben",
+    "none": "Keine",
+    "tags": "Tags",
+    "practice": "Praxis",
+    "source": "Quelle"
+  },
+  "errors": {
+    "failedToSaveOllamaHost": "Ollama-Host konnte nicht gespeichert werden.",
+    "failedToDeleteAccount": "Konto konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "failedToUpdateDisplayName": "Anzeigename konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
+    "failedToUpdateOrganisation": "Organisation konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
+    "failedToSaveApiKey": "{{label}} konnte nicht gespeichert werden."
   },
   "agents": {
     "general": "Allgemein",

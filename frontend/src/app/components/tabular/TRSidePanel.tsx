@@ -17,6 +17,7 @@ import { preprocessCitations, type ParsedCitation } from "./citation-utils";
 import { getPillClass } from "./pillUtils";
 import { DocView } from "../shared/DocView";
 import { DocxView } from "../shared/DocxView";
+import { useTranslations } from "next-intl";
 
 function isDocxDocument(d: {
     file_type?: string | null;
@@ -67,6 +68,7 @@ export function TRSidePanel({
     citationQuote,
     citationPage,
 }: Props) {
+    const t = useTranslations("common");
     const sortedColumns = [...columns].sort((a, b) => a.index - b.index);
     const currentPos = sortedColumns.findIndex((c) => c.index === column.index);
     const prevColumn = currentPos > 0 ? sortedColumns[currentPos - 1] : null;
@@ -227,7 +229,7 @@ export function TRSidePanel({
                                 }
                             }}
                             disabled={regenerating}
-                            title="Regenerate"
+                            title={t("regenerate")}
                             className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 disabled:opacity-40"
                         >
                             {regenerating ? (

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Folder, Search, X } from "lucide-react";
 import type { MikeProject } from "./types";
+import { useTranslations } from "next-intl";
 
 interface Props {
     projects: MikeProject[];
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function ProjectPicker({ projects, loading, selectedId, onSelect }: Props) {
+    const t = useTranslations("common");
     const [search, setSearch] = useState("");
     const q = search.toLowerCase().trim();
     const filtered = q ? projects.filter((p) => p.name.toLowerCase().includes(q)) : projects;
@@ -23,7 +25,7 @@ export function ProjectPicker({ projects, loading, selectedId, onSelect }: Props
                     <Search className="h-3.5 w-3.5 text-gray-400 shrink-0" />
                     <input
                         type="text"
-                        placeholder="Search projects…"
+                        placeholder={t("projects.searchProjects")}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="flex-1 bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"

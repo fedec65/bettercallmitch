@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,9 +20,11 @@ export function EmailPillInput({
     onChange,
     validate,
     onValidatingChange,
-    placeholder = "Add by email…",
+    placeholder,
     autoFocus = false,
 }: Props) {
+    const t = useTranslations("common");
+    const resolvedPlaceholder = placeholder || t("addByEmail");
     const [input, setInput] = useState("");
     const [validating, setValidating] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -105,7 +108,7 @@ export function EmailPillInput({
                     }}
                     onKeyDown={handleKeyDown}
                     onBlur={addEmail}
-                    placeholder={emails.length === 0 ? placeholder : ""}
+                    placeholder={emails.length === 0 ? resolvedPlaceholder : ""}
                     className="flex-1 min-w-[160px] bg-transparent text-sm text-gray-700 placeholder:text-gray-400 outline-none"
                     autoFocus={autoFocus}
                 />

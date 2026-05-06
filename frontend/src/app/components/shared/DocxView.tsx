@@ -9,6 +9,7 @@ import {
     highlightDocxQuote,
 } from "./highlightDocxQuote";
 import type { CitationQuote } from "./types";
+import { useTranslations } from "next-intl";
 
 interface Props {
     documentId: string;
@@ -208,6 +209,7 @@ export function DocxView({
     rounded = true,
     bordered = true,
 }: Props) {
+    const t = useTranslations("common");
     const scrollRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const lastScrollTopRef = useRef(0);
@@ -480,7 +482,7 @@ export function DocxView({
                         type="button"
                         onClick={() => onWarningDismiss?.()}
                         className="text-amber-600 hover:text-amber-900"
-                        aria-label="Dismiss warning"
+                        aria-label={t("dismissWarning")}
                     >
                         ×
                     </button>

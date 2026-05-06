@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { X, Upload } from "lucide-react";
 import { listDocumentVersions } from "@/app/lib/mikeApi";
 import type { MikeDocument } from "./types";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
+    const t = useTranslations("common");
     const [name, setName] = useState("");
     const [stagedFile, setStagedFile] = useState<File | null>(null);
     const [submitting, setSubmitting] = useState(false);
@@ -97,7 +99,7 @@ export function UploadNewVersionModal({ open, onClose, doc, onSubmit }: Props) {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Version name"
+                        placeholder={t("versionName")}
                         className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-gray-400"
                     />
                     <div className="mt-2 text-xs text-gray-500">

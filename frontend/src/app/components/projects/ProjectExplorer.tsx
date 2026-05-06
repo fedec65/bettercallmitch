@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import type { MikeDocument, MikeFolder } from "@/app/components/shared/types";
 import { VersionChip } from "@/app/components/shared/VersionChip";
+import { useTranslations } from "next-intl";
 
 interface Props {
     projectName?: string | null;
@@ -57,6 +58,7 @@ export function ProjectExplorer({
     onMoveDoc,
     onMoveFolder,
 }: Props) {
+    const t = useTranslations("common");
     const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
     const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
     const [creatingIn, setCreatingIn] = useState<string | null | undefined>(undefined);
@@ -184,7 +186,7 @@ export function ProjectExplorer({
                             ref={newFolderInputRef}
                             autoFocus
                             className="flex-1 min-w-0 text-xs bg-transparent outline-none border-b border-gray-300 text-gray-800"
-                            placeholder="Folder name"
+                            placeholder={t("projects.folderName")}
                             value={newFolderName}
                             onChange={(e) => setNewFolderName(e.target.value)}
                             onKeyDown={(e) => {

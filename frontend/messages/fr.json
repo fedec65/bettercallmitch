@@ -44,11 +44,13 @@
     "newProject": "Nouveau projet",
     "projectName": "Nom du projet",
     "cmNumber": "N° CM",
+    "cmNumberShort": "N° CM",
     "addColleagues": "Ajouter des collègues par e-mail",
     "folderName": "Nom du dossier",
     "searchProjects": "Rechercher des projets…",
     "loadingVersions": "Chargement des versions…",
-    "search": "Rechercher…"
+    "search": "Rechercher…",
+    "versionName": "Nom de la version"
   },
   "tabularReviews": {
     "tabularReview": "Aperçu tabulaire",
@@ -58,13 +60,18 @@
     "addTag": "Ajouter un tag…",
     "analysisPrompt": "Rédigez le prompt d'analyse – décrivez ce que BetterCallMitCH doit extraire de chaque document pour cette colonne…",
     "searchDocuments": "Rechercher des documents…",
-    "searchChats": "Rechercher des chats…"
+    "searchChats": "Rechercher des chats…",
+    "askAboutDocuments": "Posez une question sur vos documents..."
   },
   "workflows": {
     "selectWorkflow": "Sélectionner un workflow",
     "searchWorkflows": "Rechercher des workflows…",
     "people": "Personnes",
-    "editColumn": "Modifier la colonne"
+    "editColumn": "Modifier la colonne",
+    "workflowName": "Nom du workflow",
+    "enterPracticeArea": "Saisir le domaine de pratique…",
+    "additionalInstructions": "Ajouter des instructions supplémentaires au prompt du workflow…",
+    "addPeopleByEmail": "Ajouter des personnes par e-mail…"
   },
   "account": {
     "title": "Compte",
@@ -72,7 +79,20 @@
     "modelSettings": "Paramètres des modèles",
     "privacyMode": "Mode de confidentialité",
     "language": "Langue",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "enterName": "Entrez votre nom",
+    "enterOrganisation": "Entrez votre organisation"
+  },
+  "login": {
+    "emailPlaceholder": "Entrez votre e-mail",
+    "passwordPlaceholder": "Entrez votre mot de passe"
+  },
+  "signup": {
+    "yourName": "Votre nom",
+    "yourOrganisation": "Votre organisation",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "createPassword": "Créer un mot de passe (min. 6 caractères)",
+    "confirmPassword": "Confirmer votre mot de passe"
   },
   "common": {
     "loading": "Chargement...",
@@ -85,7 +105,68 @@
     "search": "Rechercher…",
     "selectProject": "Sélectionner un projet…",
     "citation": "Citation",
-    "trackedChange": "Modification suivie"
+    "trackedChange": "Modification suivie",
+    "newChat": "Nouveau chat",
+    "deleteChat": "Supprimer le chat",
+    "uploadDocuments": "Télécharger des documents",
+    "collapseExplorer": "Réduire l'explorateur",
+    "expandExplorer": "Développer l'explorateur",
+    "peopleWithAccess": "Personnes avec accès",
+    "rename": "Renommer",
+    "download": "Télécharger",
+    "ownerOnlyAction": "Action réservée au propriétaire",
+    "addMember": "Ajouter un membre",
+    "removeAccess": "Supprimer l'accès",
+    "regenerate": "Régénérer",
+    "exportToExcel": "Exporter vers Excel",
+    "closePanel": "Fermer le panneau",
+    "chatHistory": "Historique des chats",
+    "copyQuoteAndCitation": "Copier la citation et la source",
+    "dismissWarning": "Ignorer l'avertissement",
+    "removeDocument": "Supprimer le document",
+    "apiKeyMissing": "Clé API manquante",
+    "settings": "Paramètres",
+    "columnPresets": "Préréglages de colonne",
+    "heading1": "Titre 1",
+    "heading2": "Titre 2",
+    "heading3": "Titre 3",
+    "bold": "Gras",
+    "italic": "Italique",
+    "bulletList": "Liste à puces",
+    "numberedList": "Liste numérotée",
+    "find": "Rechercher",
+    "addByEmail": "Ajouter par e-mail…",
+    "searchCanton": "Rechercher un canton...",
+    "columns": "Colonnes",
+    "documents": "Documents",
+    "project": "Projet",
+    "created": "Créé",
+    "format": "Format",
+    "prompt": "Prompt",
+    "browseAll": "Parcourir tout",
+    "selectDocuments": "Sélectionner des documents",
+    "projectNotFound": "Projet non trouvé",
+    "type": "Type",
+    "size": "Taille",
+    "version": "Version",
+    "updated": "Mis à jour",
+    "dropFilesHere": "Déposez des fichiers PDF ou DOCX ici",
+    "files": "Fichiers",
+    "chats": "Chats",
+    "profile": "Profil",
+    "practiceArea": "Domaine de pratique",
+    "allowEditing": "Autoriser la modification par les destinataires",
+    "none": "Aucun",
+    "tags": "Tags",
+    "practice": "Pratique",
+    "source": "Source"
+  },
+  "errors": {
+    "failedToSaveOllamaHost": "Échec de l'enregistrement de l'hôte Ollama.",
+    "failedToDeleteAccount": "Échec de la suppression du compte. Veuillez réessayer.",
+    "failedToUpdateDisplayName": "Échec de la mise à jour du nom d'affichage. Veuillez réessayer.",
+    "failedToUpdateOrganisation": "Échec de la mise à jour de l'organisation. Veuillez réessayer.",
+    "failedToSaveApiKey": "Échec de l'enregistrement de {{label}}."
   },
   "agents": {
     "general": "Général",

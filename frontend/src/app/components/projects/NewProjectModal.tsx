@@ -11,6 +11,7 @@ import { useDirectoryData } from "../shared/useDirectoryData";
 import { FileDirectory } from "../shared/FileDirectory";
 import { EmailPillInput } from "../shared/EmailPillInput";
 import type { MikeProject } from "../shared/types";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function NewProjectModal({ open, onClose, onCreated }: Props) {
+    const t = useTranslations("common");
     const [name, setName] = useState("");
     const [cmNumber, setCmNumber] = useState("");
     const [sharedEmails, setSharedEmails] = useState<string[]>([]);
@@ -88,7 +90,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         <span>Projects</span>
                         <span>›</span>
-                        <span>New project</span>
+                        <span>{t("projects.newProject")}</span>
                     </div>
                     <button
                         onClick={handleClose}
@@ -105,7 +107,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Project name"
+                            placeholder={t("projects.projectName")}
                             className="w-full text-2xl font-serif text-gray-800 placeholder-gray-300 focus:outline-none bg-transparent"
                             autoFocus
                         />
@@ -115,7 +117,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                             type="text"
                             value={cmNumber}
                             onChange={(e) => setCmNumber(e.target.value)}
-                            placeholder="Add a CM number..."
+                            placeholder={t("projects.cmNumber")}
                             className="mt-1.5 w-full text-sm text-gray-500 placeholder-gray-300 focus:outline-none bg-transparent"
                         />
 
@@ -137,14 +139,14 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                                 <EmailPillInput
                                     emails={sharedEmails}
                                     onChange={setSharedEmails}
-                                    placeholder="Add colleagues by email…"
+                                    placeholder={t("projects.addColleagues")}
                                 />
                             </div>
                         )}
 
                         {/* Documents */}
                         <div className="mt-4 space-y-2">
-                            <p className="text-xs font-medium text-gray-700">Select documents</p>
+                            <p className="text-xs font-medium text-gray-700">{t("common.selectDocuments")}</p>
                                 <FileDirectory
                                     standaloneDocs={standaloneDocuments}
                                     directoryProjects={dirProjects}

@@ -9,6 +9,7 @@ import {
     shareWorkflow,
 } from "@/app/lib/mikeApi";
 import { EmailPillInput } from "../shared/EmailPillInput";
+import { useTranslations } from "next-intl";
 
 interface Share {
     id: string;
@@ -28,6 +29,7 @@ export function ShareWorkflowModal({
     workflowName,
     onClose,
 }: Props) {
+    const t = useTranslations("common");
     const [pendingEmails, setPendingEmails] = useState<string[]>([]);
     const [allowEdit, setAllowEdit] = useState(false);
     const [existingShares, setExistingShares] = useState<Share[]>([]);
@@ -73,7 +75,7 @@ export function ShareWorkflowModal({
                             {workflowName}
                         </span>
                         <span>›</span>
-                        <span>People</span>
+                        <span>{t("common.people")}</span>
                     </div>
                     <button onClick={onClose} className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
                         <X className="h-4 w-4" />
@@ -84,13 +86,13 @@ export function ShareWorkflowModal({
                     <EmailPillInput
                         emails={pendingEmails}
                         onChange={setPendingEmails}
-                        placeholder="Add people by email…"
+                        placeholder={t("workflows.addPeopleByEmail")}
                         autoFocus
                     />
 
                     {/* Permission toggle */}
                     <div className="flex flex-col gap-2">
-                        <span className="text-xs font-medium text-gray-700">Allow editing by share recipients</span>
+                        <span className="text-xs font-medium text-gray-700">{t("common.allowEditing")}</span>
                         <button
                             type="button"
                             onClick={() => setAllowEdit((v) => !v)}
@@ -102,7 +104,7 @@ export function ShareWorkflowModal({
 
                     {/* Existing access */}
                     <div>
-                        <p className="text-xs font-medium text-gray-700 mb-2">People with access</p>
+                        <p className="text-xs font-medium text-gray-700 mb-2">{t("common.peopleWithAccess")}</p>
                         {loading ? (
                             <div className="space-y-2">
                                 {[1, 2].map((i) => (
@@ -113,7 +115,7 @@ export function ShareWorkflowModal({
                                 ))}
                             </div>
                         ) : existingShares.length === 0 ? (
-                            <p className="text-sm text-gray-400">None</p>
+                            <p className="text-sm text-gray-400">{t("common.none")}</p>
                         ) : (
                             <div className="space-y-1">
                                 {existingShares.map((share) => (

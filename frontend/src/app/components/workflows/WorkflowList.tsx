@@ -27,6 +27,7 @@ import { ToolbarTabs } from "../shared/ToolbarTabs";
 import { RowActions } from "../shared/RowActions";
 import { MikeIcon } from "@/components/chat/mike-icon";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslations } from "next-intl";
 
 type Tab = "all" | "builtin" | "custom" | "hidden";
 
@@ -41,6 +42,7 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 export function WorkflowList() {
+    const t = useTranslations("common");
     const router = useRouter();
     const { user } = useAuth();
     const [custom, setCustom] = useState<MikeWorkflow[]>([]);
@@ -366,7 +368,7 @@ export function WorkflowList() {
                     <HeaderSearchBtn
                         value={search}
                         onChange={setSearch}
-                        placeholder="Search workflows…"
+                        placeholder={t("workflows.searchWorkflows")}
                     />
                     <button
                         onClick={() => setNewModalOpen(true)}
@@ -405,9 +407,9 @@ export function WorkflowList() {
                         <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                             Name
                         </div>
-                        <div className="ml-auto w-28 shrink-0">Type</div>
-                        <div className="w-40 shrink-0">Practice</div>
-                        <div className="w-28 shrink-0">Source</div>
+                        <div className="ml-auto w-28 shrink-0">{t("common.type")}</div>
+                        <div className="w-40 shrink-0">{t("common.practice")}</div>
+                        <div className="w-28 shrink-0">{t("common.source")}</div>
                         <div className="w-8 shrink-0" />
                     </div>
 

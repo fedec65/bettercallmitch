@@ -44,11 +44,13 @@
     "newProject": "Nuovo progetto",
     "projectName": "Nome progetto",
     "cmNumber": "N. CM",
+    "cmNumberShort": "N. CM",
     "addColleagues": "Aggiungi colleghi per e-mail",
     "folderName": "Nome cartella",
     "searchProjects": "Cerca progetti…",
     "loadingVersions": "Caricamento versioni…",
-    "search": "Cerca…"
+    "search": "Cerca…",
+    "versionName": "Nome versione"
   },
   "tabularReviews": {
     "tabularReview": "Rassegna tabellare",
@@ -58,13 +60,18 @@
     "addTag": "Aggiungi tag…",
     "analysisPrompt": "Scrivi il prompt di analisi – descrivi cosa BetterCallMitCH dovrebbe estrarre da ogni documento per questa colonna…",
     "searchDocuments": "Cerca documenti…",
-    "searchChats": "Cerca chat…"
+    "searchChats": "Cerca chat…",
+    "askAboutDocuments": "Poni una domanda sui tuoi documenti..."
   },
   "workflows": {
     "selectWorkflow": "Seleziona workflow",
     "searchWorkflows": "Cerca workflow…",
     "people": "Persone",
-    "editColumn": "Modifica colonna"
+    "editColumn": "Modifica colonna",
+    "workflowName": "Nome workflow",
+    "enterPracticeArea": "Inserisci area di pratica…",
+    "additionalInstructions": "Aggiungi istruzioni aggiuntive al prompt del workflow…",
+    "addPeopleByEmail": "Aggiungi persone per e-mail…"
   },
   "account": {
     "title": "Account",
@@ -72,7 +79,20 @@
     "modelSettings": "Impostazioni modelli",
     "privacyMode": "Modalità privacy",
     "language": "Lingua",
-    "save": "Salva"
+    "save": "Salva",
+    "enterName": "Inserisci il tuo nome",
+    "enterOrganisation": "Inserisci la tua organizzazione"
+  },
+  "login": {
+    "emailPlaceholder": "Inserisci la tua e-mail",
+    "passwordPlaceholder": "Inserisci la tua password"
+  },
+  "signup": {
+    "yourName": "Il tuo nome",
+    "yourOrganisation": "La tua organizzazione",
+    "emailPlaceholder": "Inserisci la tua e-mail",
+    "createPassword": "Crea una password (min. 6 caratteri)",
+    "confirmPassword": "Conferma la tua password"
   },
   "common": {
     "loading": "Caricamento...",
@@ -85,7 +105,68 @@
     "search": "Cerca…",
     "selectProject": "Seleziona progetto…",
     "citation": "Citazione",
-    "trackedChange": "Modifica tracciata"
+    "trackedChange": "Modifica tracciata",
+    "newChat": "Nuova chat",
+    "deleteChat": "Elimina chat",
+    "uploadDocuments": "Carica documenti",
+    "collapseExplorer": "Comprimi explorer",
+    "expandExplorer": "Espandi explorer",
+    "peopleWithAccess": "Persone con accesso",
+    "rename": "Rinomina",
+    "download": "Scarica",
+    "ownerOnlyAction": "Azione riservata al proprietario",
+    "addMember": "Aggiungi membro",
+    "removeAccess": "Rimuovi accesso",
+    "regenerate": "Rigenera",
+    "exportToExcel": "Esporta in Excel",
+    "closePanel": "Chiudi pannello",
+    "chatHistory": "Cronologia chat",
+    "copyQuoteAndCitation": "Copia citazione e fonte",
+    "dismissWarning": "Chiudi avviso",
+    "removeDocument": "Rimuovi documento",
+    "apiKeyMissing": "Chiave API mancante",
+    "settings": "Impostazioni",
+    "columnPresets": "Preimpostazioni colonna",
+    "heading1": "Titolo 1",
+    "heading2": "Titolo 2",
+    "heading3": "Titolo 3",
+    "bold": "Grassetto",
+    "italic": "Corsivo",
+    "bulletList": "Elenco puntato",
+    "numberedList": "Elenco numerato",
+    "find": "Cerca",
+    "addByEmail": "Aggiungi per e-mail…",
+    "searchCanton": "Cerca cantone...",
+    "columns": "Colonne",
+    "documents": "Documenti",
+    "project": "Progetto",
+    "created": "Creato",
+    "format": "Formato",
+    "prompt": "Prompt",
+    "browseAll": "Sfoglia tutto",
+    "selectDocuments": "Seleziona documenti",
+    "projectNotFound": "Progetto non trovato",
+    "type": "Tipo",
+    "size": "Dimensione",
+    "version": "Versione",
+    "updated": "Aggiornato",
+    "dropFilesHere": "Rilascia file PDF o DOCX qui",
+    "files": "File",
+    "chats": "Chat",
+    "profile": "Profilo",
+    "practiceArea": "Area di pratica",
+    "allowEditing": "Consenti modifica ai destinatari",
+    "none": "Nessuno",
+    "tags": "Tag",
+    "practice": "Pratica",
+    "source": "Fonte"
+  },
+  "errors": {
+    "failedToSaveOllamaHost": "Impossibile salvare l'host Ollama.",
+    "failedToDeleteAccount": "Impossibile eliminare l'account. Riprova.",
+    "failedToUpdateDisplayName": "Impossibile aggiornare il nome visualizzato. Riprova.",
+    "failedToUpdateOrganisation": "Impossibile aggiornare l'organizzazione. Riprova.",
+    "failedToSaveApiKey": "Impossibile salvare {{label}}."
   },
   "agents": {
     "general": "Generale",

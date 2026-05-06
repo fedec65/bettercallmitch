@@ -15,8 +15,12 @@ type OllamaMessage = {
 };
 
 function getOllamaModel(modelId: string): string {
-    // Strip the "ollama-" prefix to get the actual Ollama model name
-    return modelId.replace(/^ollama-/, "").replace(/-/g, ":");
+    // Strip the "ollama-" prefix, then replace only the LAST "-" with ":"
+    // (the last dash is the Ollama tag separator: name-tag)
+    const name = modelId.replace(/^ollama-/, "");
+    const lastDash = name.lastIndexOf("-");
+    if (lastDash === -1) return name;
+    return name.slice(0, lastDash) + ":" + name.slice(lastDash + 1);
 }
 
 export function getOllamaHost(apiKeys?: { ollama?: string | null }): string {
@@ -35,11 +39,11 @@ export async function listOllamaModels(apiKeys?: { ollama?: string | null }): Pr
         if (!res.ok) return [];
         const data = (await res.json()) as { models?: Array<{ name: string }> };
         return (data.models || []).map((m) => {
-            const name = m.name;
-            // Convert "llama3.2:latest" → "ollama-llama3.2-latest"
-            const id = "ollama-" + name.replace(/:/g, "-");
-            return { id, name };
-        });
+                const name = m.name;
+                // Convert "llama3.2:latest" → "ollama-llama3.2-latest"
+                const id = "ollama-" + name.replace(/:/g, "-");
+                return { id, name };
+            });
     } catch {
         return [];
     }

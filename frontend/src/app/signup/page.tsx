@@ -9,8 +9,10 @@ import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
 import { CheckCircle2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslations } from "next-intl";
 
 export default function SignupPage() {
+    const t = useTranslations("common");
     const router = useRouter();
     const { isAuthenticated, authLoading } = useAuth();
     const [email, setEmail] = useState("");
@@ -155,7 +157,7 @@ export default function SignupPage() {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                placeholder="Your name"
+                                placeholder={t("signup.yourName")}
                                 className="w-full"
                             />
                         </div>
@@ -177,7 +179,7 @@ export default function SignupPage() {
                                 onChange={(e) =>
                                     setOrganisation(e.target.value)
                                 }
-                                placeholder="Your organisation"
+                                placeholder={t("signup.yourOrganisation")}
                                 className="w-full"
                             />
                         </div>
@@ -194,7 +196,7 @@ export default function SignupPage() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter your email"
+                                placeholder={t("signup.emailPlaceholder")}
                                 required
                                 className="w-full"
                             />
@@ -212,7 +214,7 @@ export default function SignupPage() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Create a password (min. 6 characters)"
+                                placeholder={t("signup.createPassword")}
                                 required
                                 className="w-full"
                             />
@@ -232,7 +234,7 @@ export default function SignupPage() {
                                 onChange={(e) =>
                                     setConfirmPassword(e.target.value)
                                 }
-                                placeholder="Confirm your password"
+                                placeholder={t("signup.confirmPassword")}
                                 required
                                 className="w-full"
                             />

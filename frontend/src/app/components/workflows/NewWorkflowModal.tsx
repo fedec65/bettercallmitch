@@ -5,6 +5,7 @@ import { X, MessageSquare, Table2 } from "lucide-react";
 import { createWorkflow, updateWorkflow } from "@/app/lib/mikeApi";
 import type { MikeWorkflow } from "../shared/types";
 import { PRACTICE_OPTIONS } from "./practices";
+import { useTranslations } from "next-intl";
 
 interface Props {
     open: boolean;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpdated }: Props) {
+    const t = useTranslations("common");
     const [title, setTitle] = useState("");
     const [type, setType] = useState<"assistant" | "tabular">("assistant");
     const [practice, setPractice] = useState<string>("");
@@ -120,7 +122,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Workflow name"
+                            placeholder={t("workflows.workflowName")}
                             className="w-full text-2xl font-serif text-gray-800 placeholder-gray-300 focus:outline-none bg-transparent"
                             autoFocus
                         />
@@ -128,7 +130,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                         {/* Type pills — only shown when creating */}
                         {!isEditing && (
                             <div className="mt-5">
-                                <p className="mb-2 text-sm font-medium text-gray-500">Type</p>
+                                <p className="mb-2 text-sm font-medium text-gray-500">{t("common.type")}</p>
                                 <div className="flex items-center gap-2">
                                     <button
                                         type="button"
@@ -160,7 +162,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
 
                         {/* Practice */}
                         <div className="mt-5">
-                            <p className="mb-2 text-sm font-medium text-gray-500">Practice Area</p>
+                            <p className="mb-2 text-sm font-medium text-gray-500">{t("common.practiceArea")}</p>
                             <div className="flex flex-wrap gap-2">
                                 {PRACTICE_OPTIONS.map((p) => (
                                     <button
@@ -183,7 +185,7 @@ export function NewWorkflowModal({ open, onClose, onCreated, editWorkflow, onUpd
                                     type="text"
                                     value={customPractice}
                                     onChange={(e) => setCustomPractice(e.target.value)}
-                                    placeholder="Enter practice area…"
+                                    placeholder={t("workflows.enterPracticeArea")}
                                     className="mt-3 w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-700 placeholder-gray-400 focus:border-gray-400 focus:outline-none"
                                 />
                             )}

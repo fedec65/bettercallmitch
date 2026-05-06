@@ -32,6 +32,7 @@ import { ModelToggle } from "../assistant/ModelToggle";
 import { ApiKeyMissingModal } from "../shared/ApiKeyMissingModal";
 import { PreResponseWrapper } from "../shared/PreResponseWrapper";
 import { useUserProfile } from "@/contexts/UserProfileContext";
+import { useTranslations } from "next-intl";
 import {
     getModelProvider,
     isModelAvailable,
@@ -455,6 +456,7 @@ function TRChatInput({
     onModelChange: (id: string) => void;
     apiKeys: { claudeApiKey: string | null; geminiApiKey: string | null };
 }) {
+    const t = useTranslations("common");
     const [value, setValue] = useState("");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -476,7 +478,7 @@ function TRChatInput({
                 <textarea
                     ref={textareaRef}
                     rows={1}
-                    placeholder="Ask a question about your documents..."
+                    placeholder={t("tabularReviews.askAboutDocuments")}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -532,6 +534,7 @@ function HistoryDropdown({
     currentChatId: string | null;
     onLoad: (chatId: string) => void;
 }) {
+    const t = useTranslations("common");
     const [query, setQuery] = useState("");
     const filtered = chats
         .filter((c) => c.id !== currentChatId)
@@ -547,7 +550,7 @@ function HistoryDropdown({
                 <input
                     autoFocus
                     type="text"
-                    placeholder="Search chats…"
+                    placeholder={t("tabularReviews.searchChats")}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="flex-1 text-xs bg-transparent outline-none placeholder:text-gray-400 text-gray-700"
@@ -606,6 +609,7 @@ export function TRChatPanel({
     initialChatId,
     onChatIdChange,
 }: Props) {
+    const t = useTranslations("common");
     const { profile, updateModelPreference } = useUserProfile();
     const apiKeys = {
         claudeApiKey: profile?.claudeApiKey ?? null,
@@ -1349,7 +1353,7 @@ export function TRChatPanel({
                     <div ref={historyRef} className="relative">
                         <button
                             onClick={() => setHistoryOpen((v) => !v)}
-                            title="Chat history"
+                            title={t("common.chatHistory")}
                             className={`flex items-center justify-center h-7 w-7 rounded-md transition-colors ${historyOpen ? "text-gray-900" : "text-gray-400 hover:text-gray-700"}`}
                         >
                             <Clock className="h-3.5 w-3.5" />
@@ -1366,7 +1370,7 @@ export function TRChatPanel({
                     </div>
                     <button
                         onClick={handleNewChat}
-                        title="New chat"
+                        title={t("common.newChat")}
                         className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
                     >
                         <MessageSquarePlus className="h-3.5 w-3.5" />
@@ -1374,7 +1378,7 @@ export function TRChatPanel({
                     {currentChatId && (
                         <button
                             onClick={handleDeleteChat}
-                            title="Delete chat"
+                            title={t("common.deleteChat")}
                             className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-red-600 transition-colors"
                         >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -1382,7 +1386,7 @@ export function TRChatPanel({
                     )}
                     <button
                         onClick={onClose}
-                        title="Close"
+                        title={t("common.close")}
                         className="flex items-center justify-center h-7 w-7 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
                     >
                         <X className="h-3.5 w-3.5" />

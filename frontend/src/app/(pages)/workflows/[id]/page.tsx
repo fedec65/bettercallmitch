@@ -16,6 +16,7 @@ import {
 } from "@/app/components/workflows/builtinWorkflows";
 import { formatIcon, formatLabel } from "@/app/components/tabular/columnFormat";
 import { RenameableTitle } from "@/app/components/shared/RenameableTitle";
+import { useTranslations } from "next-intl";
 // dynamic import keeps Tiptap (browser-only) out of the SSR bundle
 const WorkflowPromptEditor = dynamic(
     () =>
@@ -38,6 +39,7 @@ const NAME_COL_W = "w-[300px] shrink-0";
 // Page
 // ---------------------------------------------------------------------------
 export default function WorkflowDetailPage({ params }: Props) {
+    const t = useTranslations("common");
     const { id } = use(params);
     const router = useRouter();
 
@@ -282,8 +284,8 @@ export default function WorkflowDetailPage({ params }: Props) {
                     {canShare && (
                         <button
                             onClick={() => setShareOpen(true)}
-                            aria-label="Open workflow people"
-                            title="People"
+                            aria-label={t("common.people")}
+                            title={t("common.people")}
                             className="flex items-center text-gray-500 hover:text-gray-900 transition-colors"
                         >
                             <Users className="h-4 w-4" />
@@ -380,8 +382,8 @@ export default function WorkflowDetailPage({ params }: Props) {
                             <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                                 Column Title
                             </div>
-                            <div className="ml-auto w-36 shrink-0">Format</div>
-                            <div className="flex-1 min-w-0">Prompt</div>
+                            <div className="ml-auto w-36 shrink-0">{t("common.format")}</div>
+                            <div className="flex-1 min-w-0">{t("common.prompt")}</div>
                             {!readOnly && <div className="w-8 shrink-0" />}
                         </div>
 

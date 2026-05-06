@@ -17,6 +17,7 @@ import { ToolbarTabs } from "@/app/components/shared/ToolbarTabs";
 import { AddNewTRModal } from "@/app/components/tabular/AddNewTRModal";
 import { OwnerOnlyModal } from "@/app/components/shared/OwnerOnlyModal";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslations } from "next-intl";
 
 type Tab = "all" | "in-project" | "standalone";
 
@@ -38,6 +39,7 @@ function formatDate(iso: string) {
 }
 
 export default function TabularReviewsPage() {
+    const t = useTranslations("common");
     const [reviews, setReviews] = useState<TabularReview[]>([]);
     const [projects, setProjects] = useState<MikeProject[]>([]);
     const [loading, setLoading] = useState(true);
@@ -273,7 +275,7 @@ export default function TabularReviewsPage() {
                     Tabular Reviews
                 </h1>
                 <div className="flex items-center gap-2">
-                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder="Search reviews…" />
+                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder={t("common.search")} />
                     <button
                         onClick={() => setNewTROpen(true)}
                         disabled={creating}
@@ -315,10 +317,10 @@ export default function TabularReviewsPage() {
                     <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                         Name
                     </div>
-                    <div className="ml-auto w-24 shrink-0">Columns</div>
-                    <div className="w-24 shrink-0">Documents</div>
-                    <div className="w-40 shrink-0">Project</div>
-                    <div className="w-32 shrink-0">Created</div>
+                    <div className="ml-auto w-24 shrink-0">{t("common.columns")}</div>
+                    <div className="w-24 shrink-0">{t("common.documents")}</div>
+                    <div className="w-40 shrink-0">{t("common.project")}</div>
+                    <div className="w-32 shrink-0">{t("common.created")}</div>
                     <div className="w-8 shrink-0" />
                 </div>
 

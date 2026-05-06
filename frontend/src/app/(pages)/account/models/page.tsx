@@ -19,8 +19,10 @@ import {
     modelGroupToProvider,
 } from "@/app/lib/modelAvailability";
 import { fetchOllamaModels } from "@/app/lib/mikeApi";
+import { useTranslations } from "next-intl";
 
 export default function ModelsAndApiKeysPage() {
+    const t = useTranslations("common");
     const {
         profile,
         updateModelPreference,
@@ -253,6 +255,7 @@ function OllamaHostField({
     initialValue: string;
     onSave: (value: string) => Promise<boolean>;
 }) {
+    const t = useTranslations("common");
     const [value, setValue] = useState(initialValue);
     const [isSaving, setIsSaving] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -271,7 +274,7 @@ function OllamaHostField({
             setSaved(true);
             setTimeout(() => setSaved(false), 2000);
         } else {
-            alert("Failed to save Ollama host.");
+            alert(t("errors.failedToSaveOllamaHost"));
         }
     };
 
@@ -375,6 +378,7 @@ function ApiKeyField({
     initialValue: string;
     onSave: (value: string) => Promise<boolean>;
 }) {
+    const t = useTranslations("common");
     const [value, setValue] = useState(initialValue);
     const [reveal, setReveal] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
@@ -394,7 +398,7 @@ function ApiKeyField({
             setSaved(true);
             setTimeout(() => setSaved(false), 2000);
         } else {
-            alert(`Failed to save ${label}.`);
+            alert(t("errors.failedToSaveApiKey", { label }));
         }
     };
 
