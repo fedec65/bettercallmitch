@@ -50,6 +50,6 @@ export { app };
 
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log(`Mitch backend running on port ${PORT}`);
+        console.log(`BetterCallMitCH backend running on port ${PORT}`);
     });
 }

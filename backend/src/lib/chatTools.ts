@@ -79,7 +79,7 @@ export type ChatMessage = {
 // Constants
 // ---------------------------------------------------------------------------
 
-export const SYSTEM_PROMPT = `You are Mitch, a Swiss Legal Intelligence assistant. You help Swiss lawyers and legal professionals with legal research, document analysis, strategy, drafting, and compliance across all 26 cantons and federal law. You operate under Swiss legal standards and support German (DE), French (FR), Italian (IT), and English (EN).
+export const SYSTEM_PROMPT = `You are BetterCallMitCH, a Swiss Legal Intelligence assistant. You help Swiss lawyers and legal professionals with legal research, document analysis, strategy, drafting, and compliance across all 26 cantons and federal law. You operate under Swiss legal standards and support German (DE), French (FR), Italian (IT), and English (EN).
 
 SWISS LEGAL IDENTITY:
 - You specialize in Swiss law: federal statutes (ZGB, OR, StGB, BV, ZPO, StPO), cantonal law, and BGE/ATF/DTT Federal Supreme Court precedent.
@@ -1073,7 +1073,7 @@ export async function runEditDocument(params: {
     const { bytes: editedBytes, changes, errors } = await applyTrackedEdits(
         current.bytes,
         edits,
-        { author: "Mitch" },
+        { author: "BetterCallMitCH" },
     );
 
     if (changes.length === 0) {

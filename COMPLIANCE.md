@@ -1,10 +1,10 @@
 # Swiss Compliance & Data Residency
 
-This document describes the Swiss legal compliance features built into Mitch (the Swiss-localized fork of the Mike platform).
+This document describes the Swiss legal compliance features built into BetterCallMitCH (the Swiss-localized fork of the Mike platform).
 
 ## Anwaltsgeheimnis (Attorney-Client Privilege)
 
-Mitch includes built-in Anwaltsgeheimnis protection (Art. 321 StGB / Art. 13 BGFA) ported from BetterCallClaude.
+BetterCallMitCH includes built-in Anwaltsgeheimnis protection (Art. 321 StGB / Art. 13 BGFA) ported from BetterCallClaude.
 
 ### How it works
 
@@ -62,7 +62,7 @@ Local document tools (`read_document`, `edit_document`, `generate_docx`) are NOT
 
 ## Professional Disclaimer
 
-Mitch is a legal research and analysis tool. All outputs:
+BetterCallMitCH is a legal research and analysis tool. All outputs:
 
 - Require professional lawyer review and validation before use.
 - Do not constitute legal advice.
@@ -70,11 +70,11 @@ Mitch is a legal research and analysis tool. All outputs:
 - Must be verified against official sources (admin.ch, court databases, official gazettes).
 - Must be adapted to the specific circumstances of each case.
 
-Lawyers maintain full professional responsibility for all legal work products. Mitch assists legal professionals but does not replace professional judgment, independent verification, or the duty of care owed to clients.
+Lawyers maintain full professional responsibility for all legal work products. BetterCallMitCH assists legal professionals but does not replace professional judgment, independent verification, or the duty of care owed to clients.
 
 ## Regulatory Frameworks Covered
 
-Mitch has built-in knowledge and tooling for:
+BetterCallMitCH has built-in knowledge and tooling for:
 
 - **Civil law**: ZGB, OR, ZPO
 - **Criminal law**: StGB, StPO

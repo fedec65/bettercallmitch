@@ -1,6 +1,6 @@
-# Mitch — Swiss Legal Intelligence
+# BetterCallMitCH — Swiss Legal Intelligence
 
-Swiss-localized legal intelligence platform built on the open-source BetterCallClaude engine. Mitch provides AI-powered document analysis, contract review, BGE (Bundesgerichtsentscheide) research, and cantonal law assistance tailored for the Swiss legal market.
+Swiss-localized legal intelligence platform built on the open-source BetterCallClaude engine. BetterCallMitCH provides AI-powered document analysis, contract review, BGE (Bundesgerichtsentscheide) research, and cantonal law assistance tailored for the Swiss legal market.
 
 ## Contents
 
@@ -42,7 +42,7 @@ Open `http://localhost:3000`.
 
 ## Swiss Legal Capabilities
 
-Mitch integrates the full BetterCallClaude Swiss legal intelligence stack:
+BetterCallMitCH integrates the full BetterCallClaude Swiss legal intelligence stack:
 
 - **BGE/ATF/DTF Research** — Search and retrieve Federal Supreme Court decisions via `search_bge` and `get_bge_decision`
 - **Cantonal Court Search** — Search all Swiss cantonal and federal courts via `search_swiss_decisions`
@@ -80,7 +80,7 @@ See `COMPLIANCE.md` for data residency recommendations and professional disclaim
 
 ## MCP Servers
 
-Mitch connects to 7 remote MCP servers hosted at `mcp.bettercallclaude.ch` (EU). No local Node.js build or API keys are required for these servers. See `backend/src/lib/mcp/client.ts` for the server registry and `backend/src/lib/mcp/tools.ts` for tool schemas.
+BetterCallMitCH connects to 7 remote MCP servers hosted at `mcp.bettercallclaude.ch` (EU). No local Node.js build or API keys are required for these servers. See `backend/src/lib/mcp/client.ts` for the server registry and `backend/src/lib/mcp/tools.ts` for tool schemas.
 
 ## Checks
 

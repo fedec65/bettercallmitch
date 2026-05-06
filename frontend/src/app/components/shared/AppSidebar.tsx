@@ -136,7 +136,7 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                     shouldAnimate ? "sidebar-fade-in" : ""
                                 }`}
                             >
-                                Mitch
+                                BetterCallMitCH
                             </span>
                         </Link>
                     </div>

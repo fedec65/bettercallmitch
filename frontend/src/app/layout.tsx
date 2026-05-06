@@ -17,7 +17,7 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-    title: "Mitch — Swiss Legal Intelligence",
+    title: "BetterCallMitCH — Swiss Legal Intelligence",
     description:
         "Swiss-localized AI legal intelligence platform for document analysis, contract review, and legal research.",
     icons: {

@@ -126,7 +126,7 @@ export default function ModelsAndApiKeysPage() {
                 <p className="text-sm text-gray-500 mb-4 max-w-xl">
                     You must provide your own API keys for the app to work or
                     add your API keys into the .env file if you are running your
-                    own instance of Mitch.
+                    own instance of BetterCallMitCH.
                 </p>
                 <p className="text-xs text-gray-400 mb-4 max-w-xl">
                     Title generation automatically routes to the cheapest model

@@ -18,7 +18,7 @@
     "cancel": "Annuler",
     "uploadDocument": "Télécharger un document",
     "selectWorkflow": "Sélectionner un workflow",
-    "thinking": "Mitch réfléchit...",
+    "thinking": "BetterCallMitCH réfléchit...",
     "bgeSearch": "Recherche BGE",
     "draftContract": "Rédiger un contrat",
     "cantonalLaw": "Droit cantonal",
@@ -28,7 +28,7 @@
     "workflows": "Workflows"
   },
   "assistant": {
-    "welcome": "Bienvenue chez Mitch",
+    "welcome": "Bienvenue chez BetterCallMitCH",
     "subtitle": "Votre assistant juridique IA suisse",
     "swissLegalIntelligence": "Intelligence juridique suisse",
     "bgeSearch": "Recherche BGE",
@@ -56,7 +56,7 @@
     "reviewName": "Nom de l'aperçu",
     "columnName": "Nom de la colonne",
     "addTag": "Ajouter un tag…",
-    "analysisPrompt": "Rédigez le prompt d'analyse – décrivez ce que Mitch doit extraire de chaque document pour cette colonne…",
+    "analysisPrompt": "Rédigez le prompt d'analyse – décrivez ce que BetterCallMitCH doit extraire de chaque document pour cette colonne…",
     "searchDocuments": "Rechercher des documents…",
     "searchChats": "Rechercher des chats…"
   },
