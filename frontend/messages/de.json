@@ -159,7 +159,18 @@
     "none": "Keine",
     "tags": "Tags",
     "practice": "Praxis",
-    "source": "Quelle"
+    "source": "Quelle",
+    "workflowNotFound": "Workflow nicht gefunden.",
+    "readOnly": "Nur lesen",
+    "appliedWorkflow": "Workflow angewendet",
+    "running": "Wird ausgeführt",
+    "noDocumentsInProject": "Keine Dokumente in diesem Projekt.",
+    "checking": "Prüfen…",
+    "columnTitle": "Spaltentitel",
+    "tagHint": "Drücken Sie Enter oder Komma, um einen Tag hinzuzufügen.",
+    "somethingWentWrong": "Etwas ist schiefgelaufen",
+    "askProjectQuestion": "Stellen Sie Fragen und erhalten Sie Antworten, die auf den Dokumenten dieses Projekts basieren.",
+    "extractDataIntoTables": "Extrahieren Sie Daten aus Projektdokumenten in Tabellen mit KI."
   },
   "errors": {
     "failedToSaveOllamaHost": "Ollama-Host konnte nicht gespeichert werden.",

@@ -232,6 +232,7 @@ function TRAssistantMessage({
     msg: TRMessage;
     onCitationClick: (colIdx: number, rowIdx: number) => void;
 }) {
+    const t = useTranslations("common");
     const annotations = msg.annotations ?? [];
     const citationsList: TRCitationAnnotation[] = [];
 
@@ -300,7 +301,7 @@ function TRAssistantMessage({
                     className="flex items-center text-sm text-gray-400 ml-1"
                 >
                     <div className="w-1.5 h-1.5 rounded-full border border-gray-400 border-t-transparent animate-spin shrink-0" />
-                    <span className="ml-2">Thinking...</span>
+                    <span className="ml-2">{t("chat.thinking")}</span>
                 </div>
             );
         }

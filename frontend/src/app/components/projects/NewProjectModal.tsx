@@ -88,7 +88,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-5 pb-2">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <span>Projects</span>
+                        <span>{t("navigation.projects")}</span>
                         <span>›</span>
                         <span>{t("projects.newProject")}</span>
                     </div>

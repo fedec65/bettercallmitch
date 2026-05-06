@@ -246,7 +246,7 @@ export default function WorkflowDetailPage({ params }: Props) {
     if (notFound || !workflow) {
         return (
             <div className="flex-1 flex items-center justify-center">
-                <p className="text-gray-400 font-serif">Workflow not found.</p>
+                <p className="text-gray-400 font-serif">{t("common.workflowNotFound")}</p>
             </div>
         );
     }
@@ -304,7 +304,7 @@ export default function WorkflowDetailPage({ params }: Props) {
             {/* Read-only badge for built-in workflows */}
             {readOnly && (
                 <div className="flex items-center h-10 px-8 border-b border-gray-200">
-                    <span className="text-xs text-gray-400">Read-only</span>
+                    <span className="text-xs text-gray-400">{t("common.readOnly")}</span>
                 </div>
             )}
 

@@ -69,7 +69,7 @@ export function ShareWorkflowModal({
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <span>Workflows</span>
+                        <span>{t("navigation.workflows")}</span>
                         <span>›</span>
                         <span className="truncate max-w-[220px]">
                             {workflowName}

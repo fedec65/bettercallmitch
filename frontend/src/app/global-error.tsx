@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function GlobalError({
     error,
 }: {
     error: Error & { digest?: string };
 }) {
+    const t = useTranslations("common");
     useEffect(() => {
         console.error("Global error:", error);
     }, [error]);
@@ -14,7 +16,7 @@ export default function GlobalError({
     return (
         <html lang="en">
             <head>
-                <title>Something went wrong – BetterCallMitCH</title>
+                <title>{t("common.somethingWentWrong")} – BetterCallMitCH</title>
                 <style>{`
                     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=EB+Garamond:wght@400;500&display=swap');
 
@@ -79,7 +81,7 @@ export default function GlobalError({
             </head>
             <body>
                 <div className="error-container">
-                    <h1 className="error-title">Something went wrong</h1>
+                    <h1 className="error-title">{t("common.somethingWentWrong")}</h1>
                     <p className="error-message">
                         We encountered an unexpected error. This has been logged
                         and our team will look into it.

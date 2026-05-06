@@ -126,7 +126,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
                             <span className="flex h-4 w-4 items-center justify-center">
                                 {value === null && <Check className="h-3.5 w-3.5" />}
                             </span>
-                            <span>🇨🇭 Federal (Default)</span>
+                            <span>{t("common.federalDefault")}</span>
                         </button>
 
                         {GROUP_ORDER.map((region) => {

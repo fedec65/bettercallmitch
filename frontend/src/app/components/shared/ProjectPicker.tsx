@@ -59,7 +59,7 @@ export function ProjectPicker({ projects, loading, selectedId, onSelect }: Props
                 ) : (
                     <div className="rounded-sm border border-gray-100 overflow-hidden">
                         <div className="flex items-center justify-between px-2 py-2">
-                            <p className="text-xs font-medium text-gray-400">Projects</p>
+                            <p className="text-xs font-medium text-gray-400">{t("navigation.projects")}</p>
                         </div>
                         <div className="space-y-px">
                             {filtered.map((project) => {

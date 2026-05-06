@@ -459,7 +459,7 @@ export function DisplayWorkflowModal({ workflows, workflow, onClose }: Props) {
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         {screen === "select" ? (
                             <>
-                                <span>Workflows</span>
+                                <span>{t("navigation.workflows")}</span>
                                 <span>›</span>
                                 <span>{t("workflows.selectWorkflow")}</span>
                             </>

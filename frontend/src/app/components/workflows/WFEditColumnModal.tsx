@@ -124,7 +124,7 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 pt-5 pb-2">
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        <span>Workflows</span>
+                        <span>{t("navigation.workflows")}</span>
                         <span>›</span>
                         <span>{t("workflows.editColumn")}</span>
                     </div>
@@ -256,7 +256,7 @@ export function WFEditColumnModal({ column, onClose, onSave, onDelete }: Props) 
                                         className="min-w-[80px] flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
                                     />
                                 </div>
-                                <p className="mt-1 text-xs text-gray-400">Press Enter or comma to add a tag.</p>
+                                <p className="mt-1 text-xs text-gray-400">{t("common.tagHint")}</p>
                             </div>
                         )}
 

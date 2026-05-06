@@ -114,7 +114,7 @@ export function EmailPillInput({
                 />
             </div>
             {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
-            {validating && <p className="mt-1.5 text-xs text-gray-400">Checking…</p>}
+            {validating && <p className="mt-1.5 text-xs text-gray-400">{t("common.checking")}</p>}
         </div>
     );
 }

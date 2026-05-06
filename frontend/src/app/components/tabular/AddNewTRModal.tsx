@@ -224,7 +224,7 @@ export function AddNewTRModal({
                     <div className="flex items-center gap-1.5 text-xs text-gray-400">
                         {isProjectMode && projectName ? (
                             <>
-                                <span>Projects</span>
+                                <span>{t("navigation.projects")}</span>
                                 <span>›</span>
                                 <span>
                                     {projectName}

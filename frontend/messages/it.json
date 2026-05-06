@@ -159,7 +159,18 @@
     "none": "Nessuno",
     "tags": "Tag",
     "practice": "Pratica",
-    "source": "Fonte"
+    "source": "Fonte",
+    "workflowNotFound": "Workflow non trovato.",
+    "readOnly": "Sola lettura",
+    "appliedWorkflow": "Workflow applicato",
+    "running": "In esecuzione",
+    "noDocumentsInProject": "Nessun documento in questo progetto.",
+    "checking": "Verifica…",
+    "columnTitle": "Titolo colonna",
+    "tagHint": "Premi Invio o virgola per aggiungere un tag.",
+    "somethingWentWrong": "Qualcosa è andato storto",
+    "askProjectQuestion": "Fai domande e ottieni risposte basate sui documenti di questo progetto.",
+    "extractDataIntoTables": "Estrai dati dai documenti del progetto in tabelle utilizzando l'IA."
   },
   "errors": {
     "failedToSaveOllamaHost": "Impossibile salvare l'host Ollama.",

@@ -155,7 +155,7 @@ function DocVersionHistory({
                 <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-gray-50/60 p-2`}>
                     <div className="flex items-center gap-2">
                         <Loader2 className="h-3 w-3 animate-spin text-gray-400" />
-                        <span>Loading versions…</span>
+                        <span>{t("projects.loadingVersions")}</span>
                     </div>
                 </div>
             </div>
@@ -1114,7 +1114,7 @@ export function ProjectPage({ projectId }: Props) {
             <div className="flex-1 overflow-y-auto bg-white">
                 <div className="flex items-start justify-between px-8 py-4">
                     <div className="flex items-center gap-1.5 text-2xl font-medium font-serif">
-                        <span className="text-gray-400">Projects</span>
+                        <span className="text-gray-400">{t("navigation.projects")}</span>
                         <span className="text-gray-300">›</span>
                         <div className="h-6 w-40 rounded bg-gray-100 animate-pulse" />
                     </div>
@@ -1580,8 +1580,8 @@ export function ProjectPage({ projectId }: Props) {
                         {chats.length === 0 ? (
                             <div className="flex flex-col items-start py-24 w-full max-w-xs mx-auto">
                                 <MessageSquare className="h-8 w-8 text-gray-300 mb-4" />
-                                <p className="text-2xl font-medium font-serif text-gray-900">Assistant</p>
-                                <p className="mt-1 text-xs text-gray-400 max-w-xs">Ask questions and get answers grounded in the documents in this project.</p>
+                                <p className="text-2xl font-medium font-serif text-gray-900">{t("navigation.assistant")}</p>
+                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("common.askProjectQuestion")}</p>
                                 <button onClick={() => handleNewChat()} className="mt-4 inline-flex items-center gap-1 rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white hover:bg-gray-700 transition-colors shadow-md">
                                     + Create New
                                 </button>
@@ -1660,7 +1660,7 @@ export function ProjectPage({ projectId }: Props) {
                             <div className="flex flex-col items-start py-24 w-full max-w-xs mx-auto">
                                 <Table2 className="h-8 w-8 text-gray-300 mb-4" />
                                 <p className="text-2xl font-medium font-serif text-gray-900">{t("tabularReviews.tabularReview")}</p>
-                                <p className="mt-1 text-xs text-gray-400 max-w-xs">Extract data from project documents into tables using AI.</p>
+                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("common.extractDataIntoTables")}</p>
                                 <button onClick={handleNewReview} disabled={creatingReview || docs.length === 0} className="mt-4 inline-flex items-center gap-1 rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white hover:bg-gray-700 transition-colors shadow-md disabled:opacity-40">
                                     + Create New
                                 </button>
