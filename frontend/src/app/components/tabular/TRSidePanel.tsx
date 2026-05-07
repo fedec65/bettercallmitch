@@ -229,7 +229,7 @@ export function TRSidePanel({
                                 }
                             }}
                             disabled={regenerating}
-                            title={t("regenerate")}
+                            title={t("common.regenerate")}
                             className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 disabled:opacity-40"
                         >
                             {regenerating ? (

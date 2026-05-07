@@ -206,7 +206,7 @@ function CitationHeader({
     return (
         <div className="pt-2 pb-3">
             <div className="flex items-center gap-2 mb-2">
-                <SectionLabel>{t("citation")}</SectionLabel>
+                <SectionLabel>{t("common.citation")}</SectionLabel>
                 <div className="ml-auto shrink-0">
                     <DownloadButton
                         documentId={documentId}
@@ -248,7 +248,7 @@ function TrackedChangeHeader({
     return (
         <div className="pt-2 pb-3">
             <div className="flex items-center gap-2 mb-2">
-                <SectionLabel>{t("trackedChange")}</SectionLabel>
+                <SectionLabel>{t("common.trackedChange")}</SectionLabel>
                 <div className="ml-auto flex items-center gap-2 shrink-0">
                     <EditResolveButtons
                         edit={edit}

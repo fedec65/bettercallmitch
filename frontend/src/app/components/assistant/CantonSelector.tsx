@@ -104,7 +104,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
                     <div className="border-b border-gray-100 p-2">
                         <input
                             type="text"
-                            placeholder={t("searchCanton")}
+                            placeholder={t("common.searchCanton")}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             className="w-full rounded-md border border-gray-200 px-2 py-1 text-sm outline-none focus:border-red-400"
@@ -126,7 +126,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
                             <span className="flex h-4 w-4 items-center justify-center">
                                 {value === null && <Check className="h-3.5 w-3.5" />}
                             </span>
-                            <span>{t("federalDefault")}</span>
+                            <span>{t("common.federalDefault")}</span>
                         </button>
 
                         {GROUP_ORDER.map((region) => {

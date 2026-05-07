@@ -146,7 +146,7 @@ export function NewProjectModal({ open, onClose, onCreated }: Props) {
 
                         {/* Documents */}
                         <div className="mt-4 space-y-2">
-                            <p className="text-xs font-medium text-gray-700">{t("selectDocuments")}</p>
+                            <p className="text-xs font-medium text-gray-700">{t("common.selectDocuments")}</p>
                                 <FileDirectory
                                     standaloneDocs={standaloneDocuments}
                                     directoryProjects={dirProjects}

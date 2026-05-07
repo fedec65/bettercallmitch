@@ -266,7 +266,7 @@ export function AddColumnModal({ open, existingCount, onClose, onAdd, editingCol
                                                         : index,
                                                 )
                                             }
-                                            title={t("columnPresets")}
+                                            title={t("common.columnPresets")}
                                             className="mt-1.5 rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
                                         >
                                             <ChevronDown

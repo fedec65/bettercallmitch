@@ -407,9 +407,9 @@ export function WorkflowList() {
                         <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                             Name
                         </div>
-                        <div className="ml-auto w-28 shrink-0">{t("type")}</div>
-                        <div className="w-40 shrink-0">{t("practice")}</div>
-                        <div className="w-28 shrink-0">{t("source")}</div>
+                        <div className="ml-auto w-28 shrink-0">{t("common.type")}</div>
+                        <div className="w-40 shrink-0">{t("common.practice")}</div>
+                        <div className="w-28 shrink-0">{t("common.source")}</div>
                         <div className="w-8 shrink-0" />
                     </div>
 

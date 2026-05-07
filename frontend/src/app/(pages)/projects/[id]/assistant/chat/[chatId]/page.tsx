@@ -205,7 +205,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
     const { user } = useAuth();
     const { profile } = useUserProfile();
     const username =
-        profile?.displayName?.trim() || user?.email?.split("@")[0] || "there";
+        profile?.displayName?.trim() || user?.email?.split("common.@")[0] || "there";
 
     const [project, setProject] = useState<MikeProject | null>(null);
     const [chatTitle, setChatTitle] = useState<string | null>(null);
@@ -802,7 +802,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                     <button
                         onClick={handleNewChat}
                         disabled={creatingChat}
-                        title={t("newChat")}
+                        title={t("common.newChat")}
                         className="flex items-center justify-center p-1.5 text-gray-500 hover:text-gray-900 transition-colors disabled:opacity-40"
                     >
                         {creatingChat ? (
@@ -814,7 +814,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                     <button
                         onClick={handleDeleteChat}
                         disabled={deletingChat}
-                        title={t("deleteChat")}
+                        title={t("common.deleteChat")}
                         className="flex items-center justify-center p-1.5 text-gray-500 hover:text-red-600 transition-colors disabled:opacity-40"
                     >
                         {deletingChat ? (
@@ -881,7 +881,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                                             fileInputRef.current?.click()
                                         }
                                         disabled={uploading}
-                                        title={t("uploadDocuments")}
+                                        title={t("common.uploadDocuments")}
                                         className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-40"
                                     >
                                         {uploading ? (
@@ -894,7 +894,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                                         onClick={() =>
                                             setExplorerCollapsed(true)
                                         }
-                                        title={t("collapseExplorer")}
+                                        title={t("common.collapseExplorer")}
                                         className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                                     >
                                         <ChevronLeft className="h-3.5 w-3.5" />
@@ -958,7 +958,7 @@ export default function ProjectAssistantChatPage({ params }: Props) {
                         <div className="h-10 flex items-center justify-center border-b border-gray-200 shrink-0 px-1">
                             <button
                                 onClick={() => setExplorerCollapsed(false)}
-                                title={t("expandExplorer")}
+                                title={t("common.expandExplorer")}
                                 className="p-1 rounded text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                             >
                                 <ChevronRight className="h-3.5 w-3.5" />

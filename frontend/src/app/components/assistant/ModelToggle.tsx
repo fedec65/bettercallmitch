@@ -83,7 +83,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
                     title={
                         !selectedAvailable
                             ? t("errors.apiKeyMissingForModel")
-                            : t("chooseModel")
+                            : t("common.chooseModel")
                     }
                 >
                     {!selectedAvailable && (
@@ -123,7 +123,7 @@ export function ModelToggle({ value, onChange, apiKeys }: Props) {
                                         {!available && (
                                             <AlertCircle
                                                 className="h-3.5 w-3.5 text-red-500 ml-1"
-                                                aria-label={t("apiKeyMissing")}
+                                                aria-label={t("common.apiKeyMissing")}
                                             />
                                         )}
                                         {m.id === value && available && (

@@ -113,7 +113,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 1 })}
-                        title={t("heading1")}
+                        title={t("common.heading1")}
                     >
                         <Heading1 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -126,7 +126,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 2 })}
-                        title={t("heading2")}
+                        title={t("common.heading2")}
                     >
                         <Heading2 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -139,7 +139,7 @@ export function WorkflowPromptEditor({
                                 .run()
                         }
                         active={editor.isActive("heading", { level: 3 })}
-                        title={t("heading3")}
+                        title={t("common.heading3")}
                     >
                         <Heading3 className="h-4 w-4" />
                     </ToolbarBtn>
@@ -149,7 +149,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleBold().run()
                         }
                         active={editor.isActive("bold")}
-                        title={t("bold")}
+                        title={t("common.bold")}
                     >
                         <Bold className="h-4 w-4" />
                     </ToolbarBtn>
@@ -158,7 +158,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleItalic().run()
                         }
                         active={editor.isActive("italic")}
-                        title={t("italic")}
+                        title={t("common.italic")}
                     >
                         <Italic className="h-4 w-4" />
                     </ToolbarBtn>
@@ -168,7 +168,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleBulletList().run()
                         }
                         active={editor.isActive("bulletList")}
-                        title={t("bulletList")}
+                        title={t("common.bulletList")}
                     >
                         <List className="h-4 w-4" />
                     </ToolbarBtn>
@@ -177,7 +177,7 @@ export function WorkflowPromptEditor({
                             editor.chain().focus().toggleOrderedList().run()
                         }
                         active={editor.isActive("orderedList")}
-                        title={t("numberedList")}
+                        title={t("common.numberedList")}
                     >
                         <ListOrdered className="h-4 w-4" />
                     </ToolbarBtn>

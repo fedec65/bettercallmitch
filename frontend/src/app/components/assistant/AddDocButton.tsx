@@ -59,8 +59,8 @@ export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: 
                                 ? "text-black hover:bg-gray-100"
                                 : "text-gray-400 hover:text-gray-700 hover:bg-gray-100"
                         } ${isOpen ? "bg-gray-100" : ""}`}
-                        title={t("uploadDocuments")}
-                        aria-label={t("uploadDocuments")}
+                        title={t("common.uploadDocuments")}
+                        aria-label={t("common.uploadDocuments")}
                     >
                         {selectedDocIds.length > 0 ? (
                             <span className="font-medium tabular-nums">{selectedDocIds.length}</span>
@@ -103,7 +103,7 @@ export function AddDocButton({ onSelectDoc, onBrowseAll, selectedDocIds = [] }: 
                         onClick={onBrowseAll}
                     >
                         <LayoutGridIcon className="h-4 w-4 mr-2 text-gray-500" />
-                        <span className="text-sm">{t("browseAll")}</span>
+                        <span className="text-sm">{t("common.browseAll")}</span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

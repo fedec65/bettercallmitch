@@ -226,12 +226,12 @@ export function ProjectsOverview() {
                         Name
                     </div>
                     <div className="ml-auto w-32 shrink-0 text-left">CM</div>
-                    <div className="w-24 shrink-0 text-left">{t("files")}</div>
-                    <div className="w-24 shrink-0 text-left">{t("chats")}</div>
+                    <div className="w-24 shrink-0 text-left">{t("common.files")}</div>
+                    <div className="w-24 shrink-0 text-left">{t("common.chats")}</div>
                     <div className="w-36 shrink-0 text-left">
                         Tabular Reviews
                     </div>
-                    <div className="w-32 shrink-0 text-left">{t("created")}</div>
+                    <div className="w-32 shrink-0 text-left">{t("common.created")}</div>
                     <div className="w-8 shrink-0" />
                 </div>
 

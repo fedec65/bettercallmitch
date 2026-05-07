@@ -240,7 +240,7 @@ function DocVersionHistory({
                                         setEditingVersionId(v.id);
                                         setEditingValue(v.display_name ?? "");
                                     }}
-                                    title={t("rename")}
+                                    title={t("common.rename")}
                                     className="shrink-0 rounded p-0.5 text-gray-400 opacity-0 group-hover:opacity-100 hover:text-gray-700 hover:bg-gray-200 transition"
                                 >
                                     <Pencil className="h-3 w-3" />
@@ -260,7 +260,7 @@ function DocVersionHistory({
                                     e.stopPropagation();
                                     onDownloadVersion(docId, v.id, filename);
                                 }}
-                                title={t("download")}
+                                title={t("common.download")}
                                 className="flex items-center justify-center w-6 h-6 rounded text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors"
                             >
                                 <Download className="h-3.5 w-3.5" />
@@ -281,7 +281,7 @@ export function ProjectPage({ projectId }: Props) {
     const [projectReviews, setProjectReviews] = useState<TabularReview[]>([]);
     const [loading, setLoading] = useState(true);
     const searchParams = useSearchParams();
-    const tabParam = searchParams.get("tab");
+    const tabParam = searchParams.get("common.tab");
     const tab: Tab =
         tabParam === "assistant" || tabParam === "reviews"
             ? tabParam
@@ -1151,7 +1151,7 @@ export function ProjectPage({ projectId }: Props) {
     if (!project) {
         return (
             <div className="flex h-full items-center justify-center">
-                <p className="text-gray-400">{t("projectNotFound")}</p>
+                <p className="text-gray-400">{t("common.projectNotFound")}</p>
             </div>
         );
     }
@@ -1278,12 +1278,12 @@ export function ProjectPage({ projectId }: Props) {
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder={t("search")} />
+                    <HeaderSearchBtn value={search} onChange={setSearch} placeholder={t("common.search")} />
                     <button
                         onClick={() => setPeopleModalOpen(true)}
                         className="flex h-8 w-8 items-center justify-center text-sm text-gray-500 transition-colors hover:text-gray-900 cursor-pointer"
-                        title={t("peopleWithAccess")}
-                        aria-label={t("peopleWithAccess")}
+                        title={t("common.peopleWithAccess")}
+                        aria-label={t("common.peopleWithAccess")}
                     >
                         <Users className="h-4 w-4" />
                     </button>
@@ -1356,11 +1356,11 @@ export function ProjectPage({ projectId }: Props) {
                             <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                                 Name
                             </div>
-                            <div className="ml-auto w-20 shrink-0 text-left">{t("type")}</div>
-                            <div className="w-24 shrink-0 text-left">{t("size")}</div>
-                            <div className="w-20 shrink-0 text-left">{t("version")}</div>
-                            <div className="w-32 shrink-0 text-left">{t("created")}</div>
-                            <div className="w-32 shrink-0 text-left">{t("updated")}</div>
+                            <div className="ml-auto w-20 shrink-0 text-left">{t("common.type")}</div>
+                            <div className="w-24 shrink-0 text-left">{t("common.size")}</div>
+                            <div className="w-20 shrink-0 text-left">{t("common.version")}</div>
+                            <div className="w-32 shrink-0 text-left">{t("common.created")}</div>
+                            <div className="w-32 shrink-0 text-left">{t("common.updated")}</div>
                             <div className="w-8 shrink-0" />
                         </div>
 
@@ -1377,7 +1377,7 @@ export function ProjectPage({ projectId }: Props) {
                                 className="flex-1 flex cursor-pointer flex-col items-center justify-center py-24 text-center"
                             >
                                 <Upload className="h-8 w-8 text-gray-200 mb-3" />
-                                <p className="text-sm text-gray-400">{t("dropFilesHere")}</p>
+                                <p className="text-sm text-gray-400">{t("common.dropFilesHere")}</p>
                             </div>
                         ) : (
                             <div
@@ -1574,14 +1574,14 @@ export function ProjectPage({ projectId }: Props) {
                             <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                                 Chats
                             </div>
-                            <div className="ml-auto w-32 shrink-0 text-left">{t("created")}</div>
+                            <div className="ml-auto w-32 shrink-0 text-left">{t("common.created")}</div>
                             <div className="w-8 shrink-0" />
                         </div>
                         {chats.length === 0 ? (
                             <div className="flex flex-col items-start py-24 w-full max-w-xs mx-auto">
                                 <MessageSquare className="h-8 w-8 text-gray-300 mb-4" />
                                 <p className="text-2xl font-medium font-serif text-gray-900">{t("navigation.assistant")}</p>
-                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("askProjectQuestion")}</p>
+                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("common.askProjectQuestion")}</p>
                                 <button onClick={() => handleNewChat()} className="mt-4 inline-flex items-center gap-1 rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white hover:bg-gray-700 transition-colors shadow-md">
                                     + Create New
                                 </button>
@@ -1651,16 +1651,16 @@ export function ProjectPage({ projectId }: Props) {
                             <div className={`sticky left-8 z-[60] ${NAME_COL_W} bg-white pl-2 text-left`}>
                                 Name
                             </div>
-                            <div className="ml-auto w-24 shrink-0 text-left">{t("columns")}</div>
-                            <div className="w-24 shrink-0 text-left">{t("documents")}</div>
-                            <div className="w-32 shrink-0 text-left">{t("created")}</div>
+                            <div className="ml-auto w-24 shrink-0 text-left">{t("common.columns")}</div>
+                            <div className="w-24 shrink-0 text-left">{t("common.documents")}</div>
+                            <div className="w-32 shrink-0 text-left">{t("common.created")}</div>
                             <div className="w-8 shrink-0" />
                         </div>
                         {projectReviews.length === 0 ? (
                             <div className="flex flex-col items-start py-24 w-full max-w-xs mx-auto">
                                 <Table2 className="h-8 w-8 text-gray-300 mb-4" />
                                 <p className="text-2xl font-medium font-serif text-gray-900">{t("tabularReviews.tabularReview")}</p>
-                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("extractDataIntoTables")}</p>
+                                <p className="mt-1 text-xs text-gray-400 max-w-xs">{t("common.extractDataIntoTables")}</p>
                                 <button onClick={handleNewReview} disabled={creatingReview || docs.length === 0} className="mt-4 inline-flex items-center gap-1 rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white hover:bg-gray-700 transition-colors shadow-md disabled:opacity-40">
                                     + Create New
                                 </button>

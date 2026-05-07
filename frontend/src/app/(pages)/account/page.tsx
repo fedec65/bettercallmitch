@@ -84,7 +84,7 @@ export default function AccountPage() {
             {/* Profile Settings */}
             <div className="pb-6">
                 <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-medium font-serif">{t("profile")}</h2>
+                    <h2 className="text-2xl font-medium font-serif">{t("common.profile")}</h2>
                 </div>
                 <div className="space-y-4">
                     <div>
