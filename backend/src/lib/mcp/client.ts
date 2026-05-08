@@ -114,3 +114,104 @@ export async function callMcpTool(
   const client = new McpHttpClient(url);
   return client.callTool(toolName, args);
 }
+
+export type McpServerHealth = {
+  name: string;
+  url: string;
+  status: "ok" | "error";
+  error?: string;
+};
+
+const HEALTH_TIMEOUT_MS = 8000;
+
+export async function checkMcpServerHealth(
+  serverName: string,
+): Promise<McpServerHealth> {
+  const url = MCP_SERVERS[serverName];
+  if (!url) {
+    return { name: serverName, url: "", status: "error", error: "Unknown server" };
+  }
+
+  const id = crypto.randomUUID();
+  const payload = {
+    jsonrpc: "2.0",
+    id,
+    method: "tools/list",
+  };
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), HEALTH_TIMEOUT_MS);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json, text/event-stream",
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+
+    if (!response.ok) {
+      return {
+        name: serverName,
+        url,
+        status: "error",
+        error: `HTTP ${response.status}`,
+      };
+    }
+
+    const text = await response.text();
+    const lines = text.split("\n");
+    let dataLine = "";
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith("data:")) {
+        dataLine = trimmed.slice(5).trim();
+        break;
+      }
+    }
+
+    if (!dataLine) {
+      return { name: serverName, url, status: "ok" };
+    }
+
+    try {
+      const data = JSON.parse(dataLine) as { error?: { message?: string } };
+      if (data.error) {
+        return {
+          name: serverName,
+          url,
+          status: "error",
+          error: data.error.message || "JSON-RPC error",
+        };
+      }
+    } catch {
+      // Non-JSON data line is fine — server responded
+    }
+
+    return { name: serverName, url, status: "ok" };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return {
+      name: serverName,
+      url,
+      status: "error",
+      error: message,
+    };
+  }
+}
+
+export async function checkAllMcpServers(): Promise<{
+  servers: McpServerHealth[];
+  allOk: boolean;
+}> {
+  const servers = await Promise.all(
+    Object.keys(MCP_SERVERS).map((name) => checkMcpServerHealth(name)),
+  );
+  const allOk = servers.every((s) => s.status === "ok");
+  return { servers, allOk };
+}

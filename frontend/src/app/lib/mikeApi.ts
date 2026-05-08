@@ -832,3 +832,17 @@ export async function deleteWorkflowShare(
 export async function fetchOllamaModels(): Promise<{ available: boolean; models: { id: string; name: string }[] }> {
     return apiRequest("/chat/models/ollama");
 }
+
+export type McpServerHealth = {
+    name: string;
+    url: string;
+    status: "ok" | "error";
+    error?: string;
+};
+
+export async function fetchMcpStatus(): Promise<{
+    servers: McpServerHealth[];
+    allOk: boolean;
+}> {
+    return apiRequest("/mcp/status");
+}

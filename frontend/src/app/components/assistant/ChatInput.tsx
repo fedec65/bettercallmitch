@@ -34,6 +34,7 @@ import {
 import type { MikeDocument, MikeMessage } from "../shared/types";
 import { useTranslations } from "next-intl";
 import { AgentSelector } from "./AgentSelector";
+import { McpStatus } from "./McpStatus";
 
 export interface ChatInputHandle {
     addDoc: (doc: MikeDocument) => void;
@@ -225,6 +226,11 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput(
                             })}
                         </div>
                     )}
+
+                    {/* MCP status */}
+                    <div className="px-4 pt-3">
+                        <McpStatus />
+                    </div>
 
                     {/* Input */}
                     <div className="px-4 pt-4">
