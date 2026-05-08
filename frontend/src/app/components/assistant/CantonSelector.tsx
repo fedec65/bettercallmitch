@@ -94,7 +94,7 @@ export function CantonSelector({ value, onChange, disabled }: Props) {
             >
                 <MapPin className="h-3.5 w-3.5 text-red-600" />
                 <span className="max-w-[120px] truncate">
-                    {selected ? `${selected.code} — ${selected.name}` : "🇨🇭 Federal"}
+                    {selected ? `${selected.code} — ${selected.name}` : t("common.federalDefault")}
                 </span>
                 <ChevronDown className="h-3 w-3 text-gray-400" />
             </button>
