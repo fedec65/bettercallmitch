@@ -10,6 +10,7 @@ import {
     User,
     ChevronsUpDown,
     ChevronDown,
+    LogOut,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserProfile } from "@/contexts/UserProfileContext";
@@ -36,7 +37,7 @@ interface AppSidebarProps {
 
 export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
     const t = useTranslations("navigation");
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
     const { profile } = useUserProfile();
     const { chats, currentChatId, setCurrentChatId } = useChatHistoryContext();
     const router = useRouter();
@@ -303,6 +304,16 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                 >
                                     <User className="h-4 w-4" />
                                     {t("account")}
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        signOut();
+                                        setIsDropdownOpen(false);
+                                    }}
+                                    className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2 rounded-md"
+                                >
+                                    <LogOut className="h-4 w-4" />
+                                    {t("logout")}
                                 </button>
                             </div>
                         )}
