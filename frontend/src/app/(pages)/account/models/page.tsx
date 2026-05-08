@@ -28,6 +28,7 @@ export default function ModelsAndApiKeysPage() {
         updateModelPreference,
         updateApiKey,
         updateOllamaHost,
+        updateOllamaApiKey,
         updatePreferredOllamaModel,
     } = useUserProfile();
 
@@ -87,9 +88,9 @@ export default function ModelsAndApiKeysPage() {
                     </h2>
                 </div>
                 <p className="text-sm text-gray-500 mb-4 max-w-xl">
-                    Configure your local Ollama instance for privacy mode and
-                    local model inference. No API key needed — models run on
-                    your own machine.
+                    Configure your Ollama instance. For local models, leave the
+                    API key blank. For Ollama Cloud models, enter your API key
+                    and set the host to https://api.ollama.com.
                 </p>
                 <div className="space-y-4 max-w-xl">
                     <div>
@@ -102,6 +103,22 @@ export default function ModelsAndApiKeysPage() {
                                 updateOllamaHost(value.trim() || null)
                             }
                         />
+                    </div>
+                    <div>
+                        <label className="text-sm text-gray-600 block mb-2">
+                            Ollama API Key
+                        </label>
+                        <ApiKeyField
+                            label="Ollama API Key"
+                            placeholder="sk-…"
+                            initialValue={profile?.ollamaApiKey ?? ""}
+                            onSave={(value) =>
+                                updateOllamaApiKey(value.trim() || null)
+                            }
+                        />
+                        <p className="text-xs text-gray-400 mt-1.5">
+                            {t("account.ollamaSubscriptionHint")}
+                        </p>
                     </div>
                     <div>
                         <label className="text-sm text-gray-600 block mb-2">

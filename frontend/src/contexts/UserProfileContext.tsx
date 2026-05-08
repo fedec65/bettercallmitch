@@ -22,6 +22,7 @@ interface UserProfile {
     claudeApiKey: string | null;
     geminiApiKey: string | null;
     ollamaHost: string | null;
+    ollamaApiKey: string | null;
     preferredOllamaModel: string | null;
 }
 
@@ -39,6 +40,7 @@ interface UserProfileContextType {
         value: string | null,
     ) => Promise<boolean>;
     updateOllamaHost: (value: string | null) => Promise<boolean>;
+    updateOllamaApiKey: (value: string | null) => Promise<boolean>;
     updatePreferredOllamaModel: (value: string | null) => Promise<boolean>;
     reloadProfile: () => Promise<void>;
     incrementMessageCredits: () => Promise<boolean>;
@@ -82,6 +84,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                     claudeApiKey: null,
                     geminiApiKey: null,
                     ollamaHost: null,
+                    ollamaApiKey: null,
                     preferredOllamaModel: null,
                 });
                 return;
@@ -118,6 +121,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                     claudeApiKey: data.claude_api_key ?? null,
                     geminiApiKey: data.gemini_api_key ?? null,
                     ollamaHost: data.ollama_host ?? null,
+                    ollamaApiKey: data.ollama_api_key ?? null,
                     preferredOllamaModel: data.preferred_ollama_model ?? null,
                 });
 
@@ -156,6 +160,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 tabularModel: "gemini-3-flash-preview",
                 claudeApiKey: null,
                 geminiApiKey: null,
+                ollamaApiKey: null,
                 ollamaHost: null,
                 preferredOllamaModel: null,
             });
@@ -308,6 +313,30 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
         [user],
     );
 
+    const updateOllamaApiKey = useCallback(
+        async (value: string | null): Promise<boolean> => {
+            if (!user) return false;
+            const normalized = value?.trim() ? value.trim() : null;
+            try {
+                const { error } = await supabase
+                    .from("user_profiles")
+                    .update({
+                        ollama_api_key: normalized,
+                        updated_at: new Date().toISOString(),
+                    })
+                    .eq("user_id", user.id);
+                if (error) throw error;
+                setProfile((prev) =>
+                    prev ? { ...prev, ollamaApiKey: normalized } : null,
+                );
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [user],
+    );
+
     const updatePreferredOllamaModel = useCallback(
         async (value: string | null): Promise<boolean> => {
             if (!user) return false;
@@ -390,6 +419,7 @@ export function UserProfileProvider({ children }: { children: ReactNode }) {
                 updateModelPreference,
                 updateApiKey,
                 updateOllamaHost,
+                updateOllamaApiKey,
                 updatePreferredOllamaModel,
                 reloadProfile,
                 incrementMessageCredits,

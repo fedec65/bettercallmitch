@@ -15,12 +15,8 @@ type OllamaMessage = {
 };
 
 function getOllamaModel(modelId: string): string {
-    // Strip the "ollama-" prefix, then replace only the LAST "-" with ":"
-    // (the last dash is the Ollama tag separator: name-tag)
-    const name = modelId.replace(/^ollama-/, "");
-    const lastDash = name.lastIndexOf("-");
-    if (lastDash === -1) return name;
-    return name.slice(0, lastDash) + ":" + name.slice(lastDash + 1);
+    // The ID is just "ollama-" + the original model name (colon included).
+    return modelId.replace(/^ollama-/, "");
 }
 
 export function getOllamaHost(apiKeys?: { ollama?: string | null }): string {
@@ -32,16 +28,27 @@ export function getOllamaHost(apiKeys?: { ollama?: string | null }): string {
 // Backward compat alias used internally
 const getHost = getOllamaHost;
 
-export async function listOllamaModels(apiKeys?: { ollama?: string | null }): Promise<{ id: string; name: string }[]> {
+function getOllamaHeaders(apiKey?: string | null): Record<string, string> {
+    const headers: Record<string, string> = {};
+    if (apiKey?.trim()) {
+        headers["Authorization"] = `Bearer ${apiKey.trim()}`;
+    }
+    return headers;
+}
+
+export async function listOllamaModels(apiKeys?: { ollama?: string | null; ollama_api_key?: string | null }): Promise<{ id: string; name: string }[]> {
     const host = getOllamaHost(apiKeys);
     try {
-        const res = await fetch(`${host}/api/tags`, { signal: AbortSignal.timeout(8000) });
+        const res = await fetch(`${host}/api/tags`, {
+            signal: AbortSignal.timeout(8000),
+            headers: getOllamaHeaders(apiKeys?.ollama_api_key),
+        });
         if (!res.ok) return [];
         const data = (await res.json()) as { models?: Array<{ name: string }> };
         return (data.models || []).map((m) => {
                 const name = m.name;
-                // Convert "llama3.2:latest" → "ollama-llama3.2-latest"
-                const id = "ollama-" + name.replace(/:/g, "-");
+                // Preserve the original model name (including colons) in the ID.
+                const id = "ollama-" + name;
                 return { id, name };
             });
     } catch {
@@ -93,6 +100,7 @@ export async function streamOllama(
     const maxIter = params.maxIterations ?? 10;
     const host = getHost(apiKeys);
     const ollamaModel = getOllamaModel(model);
+    console.log("[ollama] streaming", { host, model: ollamaModel, hasApiKey: !!apiKeys?.ollama_api_key?.trim() });
     const ollamaTools = toOllamaTools(tools);
 
     const ollamaMessages = toOllamaMessages(systemPrompt, messages);
@@ -111,15 +119,23 @@ export async function streamOllama(
 
         const res = await fetch(`${host}/api/chat`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                ...getOllamaHeaders(apiKeys?.ollama_api_key),
+            },
             body: JSON.stringify(body),
         });
 
         if (!res.ok) {
             const errText = await res.text().catch(() => "");
-            throw new Error(
-                `Ollama HTTP ${res.status}: ${errText.slice(0, 200)}`,
-            );
+            let msg = `Ollama HTTP ${res.status}: ${errText.slice(0, 200)}`;
+            if (res.status === 403) {
+                const lower = errText.toLowerCase();
+                if (lower.includes("subscription") || lower.includes("upgrade")) {
+                    msg = `The model "${ollamaModel}" requires an Ollama Pro subscription. Try a free-tier model (e.g., gemma3:4b) or subscribe at ollama.com/upgrade.`;
+                }
+            }
+            throw new Error(msg);
         }
 
         if (!res.body) {
@@ -218,7 +234,7 @@ export async function completeOllamaText(params: {
     systemPrompt?: string;
     user: string;
     maxTokens?: number;
-    apiKeys?: { ollama?: string | null };
+    apiKeys?: { ollama?: string | null; ollama_api_key?: string | null };
 }): Promise<string> {
     const host = getHost(params.apiKeys);
     const ollamaModel = getOllamaModel(params.model);
@@ -230,7 +246,10 @@ export async function completeOllamaText(params: {
 
     const res = await fetch(`${host}/api/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            ...getOllamaHeaders(params.apiKeys?.ollama_api_key),
+        },
         body: JSON.stringify({
             model: ollamaModel,
             messages,
@@ -241,7 +260,14 @@ export async function completeOllamaText(params: {
 
     if (!res.ok) {
         const errText = await res.text().catch(() => "");
-        throw new Error(`Ollama HTTP ${res.status}: ${errText.slice(0, 200)}`);
+        let msg = `Ollama HTTP ${res.status}: ${errText.slice(0, 200)}`;
+        if (res.status === 403) {
+            const lower = errText.toLowerCase();
+            if (lower.includes("subscription") || lower.includes("upgrade")) {
+                msg = `The model "${ollamaModel}" requires an Ollama Pro subscription. Try a free-tier model (e.g., gemma3:4b) or subscribe at ollama.com/upgrade.`;
+            }
+        }
+        throw new Error(msg);
     }
 
     const data = (await res.json()) as {

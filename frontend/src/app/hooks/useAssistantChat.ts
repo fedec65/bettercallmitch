@@ -756,6 +756,26 @@ export function useAssistantChat({
                             continue;
                         }
 
+                        if (data.type === "error") {
+                            clearStreamingPlaceholders();
+                            const errMsg =
+                                typeof data.message === "string"
+                                    ? data.message
+                                    : "Stream error";
+                            setMessages((prev) => {
+                                const updated = [...prev];
+                                const last = updated[updated.length - 1];
+                                if (last?.role === "assistant") {
+                                    updated[updated.length - 1] = {
+                                        ...last,
+                                        error: errMsg,
+                                    };
+                                }
+                                return updated;
+                            });
+                            continue;
+                        }
+
                         if (data.type === "citations") {
                             // End-of-stream signal — scrub any lingering
                             // placeholders so they don't persist into the

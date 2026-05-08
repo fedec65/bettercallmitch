@@ -30,7 +30,7 @@ export async function getUserModelSettings(
     const client = db ?? createServerSupabase();
     const { data } = await client
         .from("user_profiles")
-        .select("tabular_model, claude_api_key, gemini_api_key, ollama_host, privacy_mode, preferred_ollama_model")
+        .select("tabular_model, claude_api_key, gemini_api_key, ollama_host, ollama_api_key, privacy_mode, preferred_ollama_model")
         .eq("user_id", userId)
         .single();
 
@@ -38,6 +38,7 @@ export async function getUserModelSettings(
         claude: data?.claude_api_key ?? null,
         gemini: data?.gemini_api_key ?? null,
         ollama: data?.ollama_host ?? null,
+        ollama_api_key: data?.ollama_api_key ?? null,
     };
 
     return {
@@ -55,12 +56,13 @@ export async function getUserApiKeys(
     const client = db ?? createServerSupabase();
     const { data } = await client
         .from("user_profiles")
-        .select("claude_api_key, gemini_api_key, ollama_host")
+        .select("claude_api_key, gemini_api_key, ollama_host, ollama_api_key")
         .eq("user_id", userId)
         .single();
     return {
         claude: data?.claude_api_key ?? null,
         gemini: data?.gemini_api_key ?? null,
         ollama: data?.ollama_host ?? null,
+        ollama_api_key: data?.ollama_api_key ?? null,
     };
 }

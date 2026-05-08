@@ -35,10 +35,10 @@ chatRouter.get("/models/ollama", requireAuth, async (req, res) => {
     const db = createServerSupabase();
     const { data: profile } = await db
         .from("user_profiles")
-        .select("ollama_host")
+        .select("ollama_host, ollama_api_key")
         .eq("user_id", userId)
         .single();
-    const models = await listOllamaModels({ ollama: profile?.ollama_host });
+    const models = await listOllamaModels({ ollama: profile?.ollama_host, ollama_api_key: profile?.ollama_api_key });
     res.json({ available: models.length > 0, models });
 });
 
@@ -448,14 +448,14 @@ chatRouter.post("/", requireAuth, async (req, res) => {
     let selectedModel = model;
     const { data: profile } = await db
         .from("user_profiles")
-        .select("privacy_mode, preferred_ollama_model, ollama_host")
+        .select("privacy_mode, preferred_ollama_model, ollama_host, ollama_api_key")
         .eq("user_id", userId)
         .single();
     if (profile?.privacy_mode === "strict") {
         // Use user's preferred Ollama model, or discover first available
         let ollamaModel = profile?.preferred_ollama_model;
         if (!ollamaModel) {
-            const available = await listOllamaModels({ ollama: profile?.ollama_host });
+            const available = await listOllamaModels({ ollama: profile?.ollama_host, ollama_api_key: profile?.ollama_api_key });
             ollamaModel = available[0]?.id ?? "ollama-llama3.2-latest";
         }
         selectedModel = ollamaModel;
@@ -535,9 +535,13 @@ chatRouter.post("/", requireAuth, async (req, res) => {
         }
     } catch (err) {
         console.error("[chat/stream] error:", err);
+        const errorMessage =
+            err instanceof Error && err.message
+                ? err.message
+                : "Stream error";
         try {
             write(
-                `data: ${JSON.stringify({ type: "error", message: "Stream error" })}\n\n`,
+                `data: ${JSON.stringify({ type: "error", message: errorMessage })}\n\n`,
             );
             write("data: [DONE]\n\n");
         } catch {

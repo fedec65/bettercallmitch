@@ -40,6 +40,7 @@ export type UserApiKeys = {
     claude?: string | null;
     gemini?: string | null;
     ollama?: string | null;
+    ollama_api_key?: string | null;
 };
 
 export type StreamChatParams = {
